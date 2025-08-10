@@ -141,7 +141,7 @@ export default function LandingPage() {
         <section id="pain" className="mx-auto mt-20 max-w-5xl">
           <div className="mb-8 text-center">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              The pains your customers feel today
+              Why starting is hard
             </h2>
             <p className="mt-2 text-slate-400">
               These are what JourneyLauncher eliminates.
@@ -173,7 +173,7 @@ export default function LandingPage() {
                 <div className="mb-3 inline-flex items-center gap-2 text-rose-300">
                   <AlertTriangle className="h-5 w-5" />
                   <span className="text-xs uppercase tracking-wide text-rose-300/90">
-                    Problem
+                    CHALLENGE
                   </span>
                 </div>
                 <h3 className="text-lg font-medium text-slate-100">
