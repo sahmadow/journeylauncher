@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState } from "react";
 import { AlertTriangle, CheckCircle2, Mail, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -23,18 +24,15 @@ export default function LandingPage() {
 
     try {
       setStatus("loading");
-      // Simulate a network request. Replace with your API call.
+      // Simulate network. Replace with your real waitlist endpoint.
       await new Promise((res) => setTimeout(res, 800));
-
-      // Save locally so you can test quickly; remove in production.
       const key = "waitlist_emails";
       const existing = JSON.parse(localStorage.getItem(key) || "[]");
       if (!existing.includes(email)) existing.push(email);
       localStorage.setItem(key, JSON.stringify(existing));
-
       setStatus("success");
       setEmail("");
-    } catch (err) {
+    } catch {
       setStatus("error");
       setError("Something went wrong. Please try again.");
     }
@@ -54,10 +52,13 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 font-semibold tracking-tight">
             <Sparkles className="h-5 w-5" />
-            <span className="text-lg">YourSaaS</span>
+            <span className="text-lg">JourneyLauncher</span>
           </a>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/40 px-3 py-1 text-xs text-slate-300">
-            <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
             Coming soon
           </span>
         </div>
@@ -74,20 +75,25 @@ export default function LandingPage() {
           >
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/40 px-3 py-1 text-xs text-slate-300">
               <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-              <span>Built for modern SaaS</span>
+              <span>Built for idea validation</span>
             </div>
+
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               <span className="bg-gradient-to-r from-indigo-300 via-white to-fuchsia-300 bg-clip-text text-transparent">
-                [Describe the big promise in one sentence]
+                Test your idea. See if it works. Fast.
               </span>
             </h1>
+
             <p className="mx-auto mt-4 max-w-2xl text-slate-300">
-              [One or two lines explaining the product. Keep it short and benefit-driven.]
-              {/* Example: "Turn messy workflows into clean, automated journeys in minutes—without code." */}
+              Got an idea? We help you run quick tests, find your first fans,
+              and see if it’s worth building — no marketing skills needed.
             </p>
 
             {/* Email Signup */}
-            <form onSubmit={handleSubmit} className="mx-auto mt-8 flex w-full max-w-xl flex-col items-center gap-3 sm:flex-row">
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto mt-8 flex w-full max-w-xl flex-col items-center gap-3 sm:flex-row"
+            >
               <label htmlFor="email" className="sr-only">
                 Email
               </label>
@@ -109,7 +115,7 @@ export default function LandingPage() {
                 disabled={status === "loading"}
                 className="w-full sm:w-auto rounded-xl bg-indigo-500 px-5 py-3 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {status === "loading" ? "Submitting…" : "Sign up to receive email once the service is launched"}
+                {status === "loading" ? "Submitting…" : "Join the waitlist"}
               </button>
             </form>
             <p className="mt-2 text-xs text-slate-400">No spam. Unsubscribe anytime.</p>
@@ -120,44 +126,40 @@ export default function LandingPage() {
               </p>
             )}
             {status === "success" && (
-              <p className="mt-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300" role="status" aria-live="polite">
+              <p
+                className="mt-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300"
+                role="status"
+                aria-live="polite"
+              >
                 Thanks! You're on the list. We'll email you at launch.
               </p>
             )}
           </motion.div>
         </section>
 
-        {/* Pain Points */}
+        {/* Pain Points (renamed to Problems, 3 only) */}
         <section id="pain" className="mx-auto mt-20 max-w-5xl">
           <div className="mb-8 text-center">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">The pains your customers feel today</h2>
-            <p className="mt-2 text-slate-400">Replace each card with the top pains your product eliminates.</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              The pains your customers feel today
+            </h2>
+            <p className="mt-2 text-slate-400">
+              These are what JourneyLauncher eliminates.
+            </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "[Pain Point #1]",
-                desc: "[Short sentence describing the problem in the user's words.]",
+                title: "Don’t know if anyone cares",
+                desc: "Unsure if your idea will actually get attention.",
               },
               {
-                title: "[Pain Point #2]",
-                desc: "[Short sentence describing the problem in the user's words.]",
+                title: "Zero marketing skills",
+                desc: "Ads, pages, and copy feel impossible to make.",
               },
               {
-                title: "[Pain Point #3]",
-                desc: "[Short sentence describing the problem in the user's words.]",
-              },
-              {
-                title: "[Pain Point #4]",
-                desc: "[Optional extra pain point.]",
-              },
-              {
-                title: "[Pain Point #5]",
-                desc: "[Optional extra pain point.]",
-              },
-              {
-                title: "[Pain Point #6]",
-                desc: "[Optional extra pain point.]",
+                title: "Tight budget",
+                desc: "You need results without spending big.",
               },
             ].map((item, i) => (
               <motion.div
@@ -170,34 +172,42 @@ export default function LandingPage() {
               >
                 <div className="mb-3 inline-flex items-center gap-2 text-rose-300">
                   <AlertTriangle className="h-5 w-5" />
-                  <span className="text-xs uppercase tracking-wide text-rose-300/90">Pain</span>
+                  <span className="text-xs uppercase tracking-wide text-rose-300/90">
+                    Problem
+                  </span>
                 </div>
-                <h3 className="text-lg font-medium text-slate-100">{item.title}</h3>
+                <h3 className="text-lg font-medium text-slate-100">
+                  {item.title}
+                </h3>
                 <p className="mt-1 text-sm text-slate-400">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Solution */}
+        {/* Solution (keep 3 pillars) */}
         <section id="solution" className="mx-auto mt-20 max-w-5xl">
           <div className="mb-8 text-center">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">How your product solves it</h2>
-            <p className="mt-2 text-slate-400">Swap placeholders with a crisp, user-focused solution.</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              How your product solves it
+            </h2>
+            <p className="mt-2 text-slate-400">
+              Crisp, outcome-focused solutions.
+            </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {[
               {
-                title: "[Solution Pillar #1]",
-                desc: "[Explain how you remove Pain #1. Focus on outcome, not features.]",
+                title: "We make it launch-ready",
+                desc: "Share your idea; we turn it into ads and a landing page.",
               },
               {
-                title: "[Solution Pillar #2]",
-                desc: "[Explain how you remove Pain #2. Keep it concrete.]",
+                title: "Find your first fans",
+                desc: "We put you in front of the right people and track interest.",
               },
               {
-                title: "[Solution Pillar #3]",
-                desc: "[Explain how you remove Pain #3. Quantify if possible.]",
+                title: "See what works",
+                desc: "Get clear data on whether your idea’s worth building.",
               },
             ].map((item, i) => (
               <motion.div
@@ -210,9 +220,13 @@ export default function LandingPage() {
               >
                 <div className="mb-3 inline-flex items-center gap-2 text-emerald-300">
                   <CheckCircle2 className="h-5 w-5" />
-                  <span className="text-xs uppercase tracking-wide text-emerald-300/90">Solution</span>
+                  <span className="text-xs uppercase tracking-wide text-emerald-300/90">
+                    Solution
+                  </span>
                 </div>
-                <h3 className="text-lg font-medium text-slate-100">{item.title}</h3>
+                <h3 className="text-lg font-medium text-slate-100">
+                  {item.title}
+                </h3>
                 <p className="mt-1 text-sm text-slate-400">{item.desc}</p>
               </motion.div>
             ))}
@@ -221,12 +235,14 @@ export default function LandingPage() {
           {/* Secondary CTA */}
           <div className="mt-10 rounded-2xl border border-slate-800 bg-gradient-to-br from-indigo-600/10 via-slate-900/40 to-fuchsia-600/10 p-6 text-center">
             <h3 className="text-xl font-semibold">Be first to try it</h3>
-            <p className="mt-1 text-slate-300">Join the waitlist and we\'ll notify you the moment we launch.</p>
+            <p className="mt-1 text-slate-300">
+              Join the waitlist and we&apos;ll notify you the moment we launch.
+            </p>
             <button
               onClick={() => document.getElementById("email")?.focus()}
               className="mt-4 rounded-xl bg-indigo-500 px-5 py-3 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300"
             >
-              Sign up to receive email once the service is launched
+              Join the waitlist
             </button>
           </div>
         </section>
@@ -234,22 +250,26 @@ export default function LandingPage() {
         {/* FAQ */}
         <section id="faq" className="mx-auto mt-20 max-w-5xl pb-24">
           <div className="mb-6 text-center">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">FAQ</h2>
-            <p className="mt-2 text-slate-400">Short answers you can customize later.</p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              FAQ
+            </h2>
+            <p className="mt-2 text-slate-400">
+              Short answers you can customize later.
+            </p>
           </div>
           <div className="divide-y divide-slate-800 rounded-2xl border border-slate-800 bg-slate-900/40">
             {[
               {
-                q: "What is this product?",
-                a: "[One-sentence description of what it does and who it\'s for.]",
+                q: "What is JourneyLauncher?",
+                a: "A simple tool to test ideas, find first fans, and collect leads before you build.",
+              },
+              {
+                q: "Who is it for?",
+                a: "Aspiring founders and creators with small budgets and no marketing skills.",
               },
               {
                 q: "When will it launch?",
-                a: "[Rough timeline or \"We\'re working hard—join the waitlist to be first to know.\"]",
-              },
-              {
-                q: "How much will it cost?",
-                a: "[Expected pricing tier or \"TBD—early users may get special pricing.\"]",
+                a: "We’re working on it. Join the waitlist to be first to know.",
               },
             ].map((item, i) => (
               <details key={i} className="group px-6 py-4 open:bg-slate-900/60">
@@ -267,7 +287,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 bg-slate-950/60">
         <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-slate-400 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} YourSaaS. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} JourneyLauncher. All rights reserved.</p>
           <nav className="flex gap-4">
             <a href="#" className="hover:text-slate-200">Privacy</a>
             <a href="#" className="hover:text-slate-200">Terms</a>
