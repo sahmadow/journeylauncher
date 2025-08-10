@@ -54,7 +54,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 font-semibold tracking-tight">
             <Sparkles className="h-5 w-5" />
-            <span className="text-lg">YourSaaS</span>
+            <span className="text-lg">JourneyLauncher</span>
           </a>
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/40 px-3 py-1 text-xs text-slate-300">
             <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
@@ -74,15 +74,15 @@ export default function LandingPage() {
           >
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/40 px-3 py-1 text-xs text-slate-300">
               <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-              <span>Built for modern SaaS</span>
+              <span>Built for idea validation</span>
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               <span className="bg-gradient-to-r from-indigo-300 via-white to-fuchsia-300 bg-clip-text text-transparent">
-                [Describe the big promise in one sentence]
+                JourneyLauncher is the go‑to platform to test ideas, understand demand, and generate leads — without breaking the bank.
               </span>
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-slate-300">
-              [One or two lines explaining the product. Keep it short and benefit-driven.]
+              Got a head full of ideas but not sure where to begin? JourneyLauncher guides you from concept to proof‑of‑demand with simple tools—even if you’re new to marketing.
               {/* Example: "Turn messy workflows into clean, automated journeys in minutes—without code." */}
             </p>
 
@@ -135,30 +135,12 @@ export default function LandingPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              {
-                title: "[Pain Point #1]",
-                desc: "[Short sentence describing the problem in the user's words.]",
-              },
-              {
-                title: "[Pain Point #2]",
-                desc: "[Short sentence describing the problem in the user's words.]",
-              },
-              {
-                title: "[Pain Point #3]",
-                desc: "[Short sentence describing the problem in the user's words.]",
-              },
-              {
-                title: "[Pain Point #4]",
-                desc: "[Optional extra pain point.]",
-              },
-              {
-                title: "[Pain Point #5]",
-                desc: "[Optional extra pain point.]",
-              },
-              {
-                title: "[Pain Point #6]",
-                desc: "[Optional extra pain point.]",
-              },
+              { title: "Unclear market demand", desc: "You don’t know if anyone really wants your idea yet—but time and money are ticking.", },
+              { title: "No marketing expertise", desc: "Ads, landing pages, tracking and copy feel overwhelming when you just want signal.", },
+              { title: "Tiny budget", desc: "You need proof without agencies or code. Every euro must move the needle.", },
+              { title: "Feature uncertainty", desc: "Unsure which features or angles will resonate with your audience.", },
+              { title: "No early adopters", desc: "You need first customers and feedback to shape an MVP—fast.", },
+              { title: "Analysis paralysis", desc: "Hard to decide what to test first or how to measure success.", },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -187,18 +169,9 @@ export default function LandingPage() {
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              {
-                title: "[Solution Pillar #1]",
-                desc: "[Explain how you remove Pain #1. Focus on outcome, not features.]",
-              },
-              {
-                title: "[Solution Pillar #2]",
-                desc: "[Explain how you remove Pain #2. Keep it concrete.]",
-              },
-              {
-                title: "[Solution Pillar #3]",
-                desc: "[Explain how you remove Pain #3. Quantify if possible.]",
-              },
+              { title: "From idea to market‑ready in minutes", desc: "Describe your concept once. We turn it into testable campaigns and assets (social ads, copy, creative suggestions).", },
+              { title: "Instant landing & waitlist", desc: "Spin up a clean page to capture early adopters and structured feedback—no code, no fuss.", },
+              { title: "Targeted testing & insights", desc: "Put your idea in front of the right audience, track responses, and learn what resonates to guide your MVP.", },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -239,18 +212,9 @@ export default function LandingPage() {
           </div>
           <div className="divide-y divide-slate-800 rounded-2xl border border-slate-800 bg-slate-900/40">
             {[
-              {
-                q: "What is this product?",
-                a: "[One-sentence description of what it does and who it\'s for.]",
-              },
-              {
-                q: "When will it launch?",
-                a: "[Rough timeline or \"We\'re working hard—join the waitlist to be first to know.\"]",
-              },
-              {
-                q: "How much will it cost?",
-                a: "[Expected pricing tier or \"TBD—early users may get special pricing.\"]",
-              },
+              { q: "What is this product?", a: "JourneyLauncher helps you test ideas, prove demand, and collect leads before you build—no marketing experience required.", },
+              { q: "When will it launch?", a: "We’re working hard. Join the waitlist and you’ll be the first to know when we go live.", },
+              { q: "How much will it cost?", a: "Affordable tiers planned. Early users on the waitlist may get special pricing.", },
             ].map((item, i) => (
               <details key={i} className="group px-6 py-4 open:bg-slate-900/60">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-slate-100">
@@ -267,7 +231,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 bg-slate-950/60">
         <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-slate-400 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} YourSaaS. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} JourneyLauncher. All rights reserved.</p>
           <nav className="flex gap-4">
             <a href="#" className="hover:text-slate-200">Privacy</a>
             <a href="#" className="hover:text-slate-200">Terms</a>
