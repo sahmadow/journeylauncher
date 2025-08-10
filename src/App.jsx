@@ -189,10 +189,10 @@ export default function LandingPage() {
         <section id="solution" className="mx-auto mt-20 max-w-5xl">
           <div className="mb-8 text-center">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              How your product solves it
+              How our product solves it
             </h2>
             <p className="mt-2 text-slate-400">
-              Crisp, outcome-focused solutions.
+              From Idea to Launch in seconds
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
