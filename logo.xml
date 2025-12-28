@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e0ff"/>
+      <stop offset="100%" stop-color="#a020f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="64" fill="#0F2A33"/>
+  <rect x="64" y="64" width="384" height="384" rx="48"
+        fill="none" stroke="url(#glow)" stroke-width="20"/>
+  <!-- Journey path -->
+  <path d="M120 360 Q200 200 392 160" fill="none" stroke="url(#glow)" stroke-width="28" stroke-linecap="round"/>
+</svg>
