@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>The Subscription Lifecycle Playbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="deck.css">
+</head>
+
+<body>
+
+  <!-- Slide 1: Cover -->
+  <div class="slide center-content">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">The Subscription Lifecycle Playbook</span>
+    <h1>Customer Lifecycle in Subscription Services</h1>
+    <p class="lead" style="font-size: 24px;">Expert Tips and Best Practices for Keeping Your Customers Enjoying the
+      Ride.</p>
+    <div style="margin-top: 40px; padding: 12px 24px; border: 1px solid rgba(255,255,255,0.2); border-radius: 99px;">
+      By Saleh Ahmadov
+    </div>
+  </div>
+
+  <!-- Slide 2: The Framework -->
+  <div class="slide">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">The Framework</span>
+    <h2>The 3 Pillars + The Bonus Engine</h2>
+    <p>We view the lifecycle not as a funnel, but as a continuous loop of value. Monetisation is the result of getting
+      the first three right.</p>
+
+    <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top:60px;">
+      <div class="card" style="border-top: 3px solid var(--brand);">
+        <h3>1. Onboarding</h3>
+        <p class="muted" style="font-size:14px;">The First Step.<br>Time-to-Value.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--brand-2);">
+        <h3>2. Engagement</h3>
+        <p class="muted" style="font-size:14px;">Building Habits.<br>Daily/Weekly Use.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <h3>3. Retention & Winback</h3>
+        <p class="muted" style="font-size:14px;">Preventing Churn &<br>Resurrecting Users.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--warn);">
+        <h3>4. Monetisation</h3>
+        <p class="muted" style="font-size:14px;"><strong>Bonus:</strong> Upsell,<br>Cross-sell & Strategy.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Onboarding -->
+  <div class="slide">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">Stage 1: Onboarding</span>
+    <h2>The First Step: Time-to-Value</h2>
+    <p>First impressions matter. This is where you make sure users understand the value of your app and the benefits of
+      upgrading to a paid plan.</p>
+
+    <!-- New Objective Section -->
+    <div
+      style="margin-top:20px; padding:12px 20px; background:rgba(92, 240, 228, 0.1); border-left:4px solid var(--brand); border-radius:4px;">
+      <strong>Objective:</strong> Completion of high value actions (e.g. 0/4 completed Sign up, Install, Play 1 Song,
+      Use sharing feature)
+    </div>
+
+    <!-- Layout Change: Stacked (Text Top, Emails Bottom 3-col) -->
+    <div style="margin-top: 30px;">
+      <div style="margin-bottom: 24px;">
+        <h4 style="color:var(--brand);">Best Practices:</h4>
+        <ul
+          style="color:var(--muted); line-height:1.6; padding-left:20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <li style="margin-bottom:0;"><strong>Product-led first:</strong> Use in-app guides and marketing comms to
+            drive the "Aha!" moment. Think of Slack's onboarding process.</li>
+          <li style="margin-bottom:0;"><strong>Define "Onboarded":</strong> What action must they take? (e.g.,
+            "Installed", "Played 1 Song"). These are key success metrics.</li>
+          <li style="margin-bottom:0;"><strong>Early Awareness:</strong> Don't hide Paid features. Show them what they
+            *could* have. Optimizing early engagement is key.</li>
+        </ul>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+        <!-- Example 1 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Journey Launcher Guide</div>
+              <div class="email-subject">Welcome to [App]!</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Hi [Name],</p>
+            <p>Here is everything you need to get started.</p>
+            <div class="email-cta">Get Started</div>
+          </div>
+        </div>
+        <!-- Example 2 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Journey Launcher Team</div>
+              <div class="email-subject">Did you know?</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Premium members can <strong>[Benefit]</strong>.</p>
+            <p>You're on the free plan, but you can try this for 24h.</p>
+            <div class="email-cta secondary">Try Premium Feature</div>
+          </div>
+        </div>
+        <!-- Example 3 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar" style="background:var(--warn); color:black;">!</div>
+            <div class="email-details">
+              <div class="email-sender">Journey Launcher System</div>
+              <div class="email-subject">You're 80% there!</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>You've created your account, but haven't <strong>[Setup]</strong>.</p>
+            <p>Complete it to unlock your dashboard.</p>
+            <div class="email-cta">Complete Setup</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Engagement -->
+  <div class="slide">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">Stage 2: Engagement</span>
+    <h2>Building the Relationship</h2>
+    <p>Once onboarded, the goal is habit formation. Move them from "trying it out" to "part of my routine."</p>
+
+    <div
+      style="margin-top:20px; padding:12px 20px; background:rgba(140, 124, 255, 0.1); border-left:4px solid var(--brand-2); border-radius:4px;">
+      <strong>Objective:</strong> Engagement level increase (e.g. Occasional user &rarr; Daily active user)
+    </div>
+
+    <!-- Layout Change: Stacked -->
+    <div style="margin-top: 30px;">
+      <div style="margin-bottom: 24px;">
+        <h4 style="color:var(--brand-2);">Tactics:</h4>
+        <ul
+          style="color:var(--muted); line-height:1.6; padding-left:20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <li><strong>Value Recap:</strong> Remind them what they're getting (e.g., "You saved 2 hours this week").</li>
+          <li><strong>Education:</strong> Help them master the tool. Power users don't churn.</li>
+          <li><strong>Community:</strong> Connect them with other users to deepen investment.</li>
+        </ul>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+        <!-- Example 1 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Your Weekly Report</div>
+              <div class="email-subject">Your activity for the week</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Hi [Name], here is your activity:</p>
+            <p style="font-size:14px; font-weight:700;">12 Tasks Completed</p>
+            <p>You're on a 3-week streak!</p>
+            <div class="email-cta">View Report</div>
+          </div>
+        </div>
+        <!-- Example 2 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Pro Tips</div>
+              <div class="email-subject">Most people don't know...</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>You can <strong>[Advanced Tip]</strong>.</p>
+            <p>It's a game changer. Watch this 30s video.</p>
+            <div class="email-cta secondary">▶ Watch Video</div>
+          </div>
+        </div>
+        <!-- Example 3 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Feature Spotlight</div>
+              <div class="email-subject">Try [Feature X]</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>We noticed you haven't tried <strong>[Feature X]</strong> yet.</p>
+            <p>It's one of our most popular tools.</p>
+            <div class="email-cta">Give it a spin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Retention & Winback -->
+  <div class="slide">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">Stage 3: Retention & Winback</span>
+    <h2>Keep the Customers</h2>
+    <p>Retention is about stopping churn <em>before</em> it happens. Winback is about right-timing the return
+      <em>after</em> they leave.
+    </p>
+
+    <div
+      style="margin-top:20px; padding:12px 20px; background:rgba(0, 255, 209, 0.1); border-left:4px solid var(--accent); border-radius:4px;">
+      <strong>Objective:</strong> Improvement of churn (e.g. Churn rate from 3.5% &rarr; 3.2%)
+    </div>
+
+    <div style="margin-top: 30px;">
+      <div style="margin-bottom: 24px;">
+        <h4 style="color:var(--accent);">Defence Strategy:</h4>
+        <ul
+          style="color:var(--muted); line-height:1.6; padding-left:20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <li><strong>Risk Signals:</strong> Identify drops in usage early. Intervene with support.</li>
+          <li><strong>Offers:</strong> Pragmatically use discounts. Balance cost of acquisition vs retention.</li>
+          <li><strong>Loyalty:</strong> Reward tenure (like Duolingo Streaks).</li>
+        </ul>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+        <!-- Example 1 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar" style="background:#ef4444; color:white;">!</div>
+            <div class="email-details">
+              <div class="email-sender">Support Team</div>
+              <div class="email-subject">We've missed you!</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>You haven't logged in for a while.</p>
+            <p>Is something blocking you?</p>
+            <div class="email-cta secondary">Reply to Support</div>
+          </div>
+        </div>
+        <!-- Example 2 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Product Update</div>
+              <div class="email-subject">It's been a while, [Name]</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Since you left, we launched <strong>[Major Feature]</strong>.</p>
+            <p>We hope it will convince you to come back.</p>
+            <div class="email-cta">See What's New</div>
+          </div>
+        </div>
+        <!-- Example 3 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Special Offer</div>
+              <div class="email-subject">Ready to try again?</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Come back today & get <strong>50% off</strong> first 2 months.</p>
+            <div class="discount-code">COMEBACK50</div>
+            <div class="email-cta">Claim Offer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Monetisation (Bonus) -->
+  <div class="slide">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">Bonus: Monetisation</span>
+    <h2>Monetising the Relationship</h2>
+    <p>Monetisation isn't just "buy now." It's about matching price to value. Think like Spotify: demonstrate value,
+      then offer the upgrade.</p>
+
+    <div style="margin-top: 30px;">
+      <div style="margin-bottom: 24px;">
+        <h4 style="color:var(--warn);">Strategies:</h4>
+        <ul
+          style="color:var(--muted); line-height:1.6; padding-left:20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <li><strong>The "Spotify" Model:</strong> Show free users what they're missing (ads, offline) in context.</li>
+          <li><strong>Annual Upgrades:</strong> Move monthly subs to annual to secure cash flow.</li>
+          <li><strong>Cross-sell:</strong> Suggest add-ons only <em>after</em> habits form.</li>
+        </ul>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+        <!-- Example 1 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Journey Launcher Team</div>
+              <div class="email-subject">Tired of interruptions?</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>You listened to 50 hours this month. Imagine <strong>Zero Ads</strong>.</p>
+            <div class="email-cta">Try Premium Free</div>
+          </div>
+        </div>
+        <!-- Example 2 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Billing Update</div>
+              <div class="email-subject">Switch to Annual & Save</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Switch to Annual and pay $90/y instead of $120.</p>
+            <p>That's <strong>3 months free</strong>.</p>
+            <div class="email-cta">Switch & Save</div>
+          </div>
+        </div>
+        <!-- Example 3 -->
+        <div class="email-card">
+          <div class="email-header">
+            <div class="email-avatar">JL</div>
+            <div class="email-details">
+              <div class="email-sender">Pro Tips</div>
+              <div class="email-subject">You've mastered [Core]</div>
+            </div>
+          </div>
+          <div class="email-body">
+            <p>Manage [Related Task] with our <strong>Pro Add-on</strong>.</p>
+            <p>It integrates with your workflow.</p>
+            <div class="email-cta secondary">Learn More</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: CTA -->
+  <div class="slide center-content">
+    <a href="https://journeylauncher.com" target="_blank" class="logo-link"><img src="deck-logo.png" class="logo-img"
+        alt="Journey Launcher"></a>
+    <span class="kicker">Ready to build your Lifecycle?</span>
+    <h1 style="max-width: 15ch;">Let's audit your strategy.</h1>
+    <p class="lead">I help subscription apps implement these exact journeys to optimize revenue and retention.</p>
+
+    <div style="margin-top: 40px; display: flex; gap: 20px;">
+      <div
+        style="padding: 30px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); width: 300px;">
+        <h3 style="margin-top:0;">The Audit</h3>
+        <p style="font-size: 16px;">We review your lifecycle stages and identify gaps in Onboarding, Engagement, and
+          Monetisation.</p>
+      </div>
+      <div
+        style="padding: 30px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); width: 300px;">
+        <h3 style="margin-top:0;">The Implementation</h3>
+        <p style="font-size: 16px;">We build the triggers, emails, and logic in your CRM tool (Braze, Customer.io,
+          etc.).</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 60px;">
+      <div style="font-size: 20px; font-weight: 700; color: var(--brand);">Book a 30-min intro call</div>
+      <div style="margin-top: 10px; color: var(--muted);">journeylauncher.com/book</div>
+    </div>
+  </div>
+
+</body>
+
+</html>

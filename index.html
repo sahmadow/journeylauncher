@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subscription CRM & Marketing Automation</title>
-  <meta name="description" content="Subscription CRM consultant focused on lifecycle strategy, activation, monetisation, and churn prevention for subscription products." />
+  <meta name="description"
+    content="Subscription CRM consultant focused on lifecycle strategy, activation, monetisation, and churn prevention for subscription products." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="logo-new.svg">
   <link rel="apple-touch-icon" href="logo-new.svg">
@@ -17,228 +21,593 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETQ01QD1R6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-ETQ01QD1R6');
   </script>
 
   <style>
-    :root{
+    :root {
       --bg: #0b0d10;
-      --card: rgba(255,255,255,0.04);
+      --card: rgba(255, 255, 255, 0.04);
       --text: #e7edf5;
       --muted: #9fb2c7;
-      --brand: #5cf0e4;       /* cyan */
-      --brand-2: #8c7cff;     /* violet */
-      --accent: #00ffd1;      /* neon */
+      --brand: #5cf0e4;
+      /* cyan */
+      --brand-2: #8c7cff;
+      /* violet */
+      --accent: #00ffd1;
+      /* neon */
       --warn: #ffb86b;
       --maxw: 1200px;
       --radius: 14px;
-      --shadow: 0 8px 30px rgba(0,0,0,0.35);
-      --border: 1px solid rgba(255,255,255,0.08);
-      --grad: radial-gradient(1000px 600px at 10% -10%, rgba(92,240,228,0.18), transparent 55%),
-              radial-gradient(800px 520px at 90% 0%, rgba(140,124,255,0.20), transparent 50%);
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      --border: 1px solid rgba(255, 255, 255, 0.08);
+      --grad: radial-gradient(1000px 600px at 10% -10%, rgba(92, 240, 228, 0.18), transparent 55%),
+        radial-gradient(800px 520px at 90% 0%, rgba(140, 124, 255, 0.20), transparent 50%);
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin:0;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color: var(--text);
-      background: radial-gradient(1200px 800px at 50% -10%, rgba(92,240,228,0.06), transparent 60%), var(--bg);
+      background: radial-gradient(1200px 800px at 50% -10%, rgba(92, 240, 228, 0.06), transparent 60%), var(--bg);
       background-attachment: fixed;
       line-height: 1.55;
       letter-spacing: 0.1px;
     }
-    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
-    header{
-      position: sticky; top: 0; z-index: 40;
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
       backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(11,13,16,0.75), rgba(11,13,16,0.35));
+      background: linear-gradient(180deg, rgba(11, 13, 16, 0.75), rgba(11, 13, 16, 0.35));
       border-bottom: var(--border);
     }
-    .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand{
-      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:0.2px;
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
     }
-    .brand-badge{
-      width:28px;height:28px;border-radius:8px;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       background: conic-gradient(from 180deg, var(--brand), var(--brand-2), var(--brand), var(--brand-2));
-      box-shadow: 0 0 30px rgba(92,240,228,0.25), inset 0 0 20px rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 30px rgba(92, 240, 228, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
-    .nav a{ color: var(--text); text-decoration: none; font-weight:600; opacity:.9 }
-    .nav-links{ display:flex; gap:18px; align-items:center; }
-    .mobile-menu-toggle{
-      display:none; background:transparent; border:none; cursor:pointer;
-      padding:8px; color:var(--text); font-size:24px; line-height:1;
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: .9
     }
-    @media (max-width: 768px){
-      .mobile-menu-toggle{ display:block; }
-      .nav-links{
-        position:fixed; top:64px; left:0; right:0;
-        flex-direction:column; gap:0; padding:12px 0;
-        background: rgba(11,13,16,0.98);
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 0;
+        background: rgba(11, 13, 16, 0.98);
         border-bottom: var(--border);
         backdrop-filter: blur(10px);
         transform: translateY(-100%);
-        opacity:0;
+        opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
-        pointer-events:none;
+        pointer-events: none;
       }
-      .nav-links.open{
+
+      .nav-links.open {
         transform: translateY(0);
-        opacity:1;
-        pointer-events:all;
+        opacity: 1;
+        pointer-events: all;
       }
-      .nav-links a{
-        display:block; width:100%; padding:14px 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .nav-links .btn{
-        margin:12px 20px 4px;
+
+      .nav-links .btn {
+        margin: 12px 20px 4px;
         width: calc(100% - 40px);
-        justify-content:center;
+        justify-content: center;
       }
     }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px; padding:12px 16px;
-      border-radius: 12px; border: 1px solid rgba(255,255,255,0.18);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-      color: var(--text); text-decoration:none; font-weight:700;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
       box-shadow: var(--shadow);
       transition: transform .18s ease, box-shadow .18s ease, background .2s ease;
       will-change: transform;
-      min-height: 44px; /* Better touch target for mobile */
+      min-height: 44px;
+      /* Better touch target for mobile */
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 40px rgba(0,255,209,0.2); }
-    @media (max-width: 768px){
-      .btn{ padding:14px 20px; font-size:16px; } /* Larger touch targets on mobile */
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 40px rgba(0, 255, 209, 0.2);
     }
-    .btn-primary{
-      background: linear-gradient(90deg, rgba(92,240,228,.25), rgba(140,124,255,.25));
-      border: 1px solid rgba(140,124,255,.35);
+
+    @media (max-width: 768px) {
+      .btn {
+        padding: 14px 20px;
+        font-size: 16px;
+      }
+
+      /* Larger touch targets on mobile */
     }
-    .btn-ghost{ background: transparent; border-color: rgba(255,255,255,0.14); }
-    .hero{
-      position: relative; overflow:hidden;
+
+    .btn-primary {
+      background: linear-gradient(90deg, rgba(92, 240, 228, .25), rgba(140, 124, 255, .25));
+      border: 1px solid rgba(140, 124, 255, .35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
       padding: clamp(52px, 7vw, 110px) 0 40px 0;
       background: var(--grad);
     }
-    .hero-grid{
-      display:grid; grid-template-columns: 1.25fr 1fr; gap: clamp(24px, 3vw, 46px);
-      align-items:center;
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: clamp(24px, 3vw, 46px);
+      align-items: center;
     }
-    @media (max-width: 920px){
-      .hero-grid{ grid-template-columns: 1fr; }
+
+    @media (max-width: 920px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    .kicker{ color: var(--brand); font-weight:700; letter-spacing:0.3px; text-transform:uppercase; font-size: 12px; }
-    h1{
+
+    .kicker {
+      color: var(--brand);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    h1 {
       font-family: "Space Grotesk", Inter, system-ui;
       font-size: clamp(34px, 5vw, 62px);
-      line-height: 1.05; margin: 10px 0 16px 0;
+      line-height: 1.05;
+      margin: 10px 0 16px 0;
       letter-spacing: -0.5px;
       text-wrap: balance;
     }
-    .lead{ font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); max-width: 42ch; }
-    .hero-card{
-      border: var(--border); border-radius: 18px; padding: 22px; background: var(--card);
+
+    .lead {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--muted);
+      max-width: 42ch;
+    }
+
+    .hero-card {
+      border: var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      background: var(--card);
       backdrop-filter: blur(8px);
     }
-    .hero-cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 24px; }
-    .tagline{
-      display:inline-flex; align-items:center; gap:12px; padding: 8px 12px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      font-weight:600; color: var(--muted);
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
     }
-    .pulse{
-      width:10px;height:10px;border-radius:99px;background:var(--accent);
-      box-shadow: 0 0 12px rgba(0,255,209,0.9), 0 0 28px rgba(0,255,209,0.4);
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      font-weight: 600;
+      color: var(--muted);
     }
-    .logos{
-      margin-top: 40px; display:flex; gap:16px; flex-wrap: wrap; align-items:center;
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0, 255, 209, 0.9), 0 0 28px rgba(0, 255, 209, 0.4);
     }
-    .logo-pill{
-      padding:10px 14px; border-radius: 12px; border: var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      font-weight:700; color: #cfe7ff; letter-spacing: 0.2px;
+
+    .logos {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
     }
-    section{ padding: 64px 0; }
-    @media (max-width: 768px){
-      section{ padding: 48px 0; } /* Tighter spacing on mobile */
+
+    .logo-pill {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      font-weight: 700;
+      color: #cfe7ff;
+      letter-spacing: 0.2px;
     }
-    .section-head{ display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom: 24px; }
-    h2{
+
+    section {
+      padding: 64px 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 48px 0;
+      }
+
+      /* Tighter spacing on mobile */
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
       font-family: "Space Grotesk", Inter, system-ui;
-      font-size: clamp(22px, 3.2vw, 40px); margin:0 0 10px 0; letter-spacing:-0.3px;
+      font-size: clamp(22px, 3.2vw, 40px);
+      margin: 0 0 10px 0;
+      letter-spacing: -0.3px;
     }
-    .muted{ color: var(--muted); }
-    .grid{
-      display:grid; gap: 16px;
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
       grid-template-columns: repeat(12, 1fr);
     }
-    .card{
-      border: var(--border); border-radius: 18px; background: var(--card); padding: 20px;
+
+    .card {
+      border: var(--border);
+      border-radius: 18px;
+      background: var(--card);
+      padding: 20px;
       backdrop-filter: blur(6px);
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover{ transform: translateY(-2px); box-shadow: 0 10px 40px rgba(140,124,255,0.22); border-color: rgba(140,124,255,0.45); }
-    .service{ grid-column: span 6; }
-    @media (max-width: 920px){ .service{ grid-column: span 12; } }
-    .card h3{ font-size: 20px; margin: 0 0 8px 0; }
-    .bullets{ margin: 10px 0 0 0; padding: 0 0 0 18px; }
-    .bullets li{ margin: 6px 0; }
-    .stack-strip{
-      display:flex; flex-wrap:wrap; gap:12px; margin-top: 12px;
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(140, 124, 255, 0.22);
+      border-color: rgba(140, 124, 255, 0.45);
     }
-    .chip{
-      border: var(--border); border-radius: 12px; padding: 8px 12px; color: #d8eaff;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+
+    .service {
+      grid-column: span 6;
+    }
+
+    @media (max-width: 920px) {
+      .service {
+        grid-column: span 12;
+      }
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin: 0 0 8px 0;
+    }
+
+    .bullets {
+      margin: 10px 0 0 0;
+      padding: 0 0 0 18px;
+    }
+
+    .bullets li {
+      margin: 6px 0;
+    }
+
+    .stack-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      border: var(--border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      color: #d8eaff;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
       font-weight: 600;
     }
-    .contact{
-      display:flex; flex-wrap:wrap; gap: 14px; align-items:center;
-      border-top: var(--border); padding-top: 24px; margin-top: 16px;
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      border-top: var(--border);
+      padding-top: 24px;
+      margin-top: 16px;
     }
-    footer{ padding: 40px 0 80px; color: var(--muted); }
-    .footer-grid{
-      display:grid; gap: 16px; grid-template-columns: 2fr 1fr;
+
+    footer {
+      padding: 40px 0 80px;
+      color: var(--muted);
     }
-    @media (max-width: 920px){ .footer-grid{ grid-template-columns: 1fr; } }
-    .vis-grad{
-      position:absolute; inset:0; pointer-events:none;
+
+    .footer-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    @media (max-width: 920px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .vis-grad {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(600px 280px at 15% 10%, rgba(92,240,228,0.12), transparent 60%),
-        radial-gradient(600px 260px at 85% 5%, rgba(140,124,255,0.12), transparent 60%);
+        radial-gradient(600px 280px at 15% 10%, rgba(92, 240, 228, 0.12), transparent 60%),
+        radial-gradient(600px 260px at 85% 5%, rgba(140, 124, 255, 0.12), transparent 60%);
       mix-blend-mode: screen;
     }
+
     /* Reveal animation */
-    .animate-in{ opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
-    .show{ opacity: 1; transform: none; }
+    .animate-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: none;
+    }
+
     /* Gradient border ring */
-    .ring{
-      position: absolute; inset: -1px; border-radius: 20px; padding: 1px;
-      background: linear-gradient(90deg, rgba(92,240,228,0.6), rgba(140,124,255,0.6));
+    .ring {
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(90deg, rgba(92, 240, 228, 0.6), rgba(140, 124, 255, 0.6));
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
       pointer-events: none;
     }
-    .link{
-      color: var(--brand); text-decoration: none; border-bottom: 1px dashed rgba(92,240,228,0.35);
-      display:inline-block; min-height:44px; line-height:44px; /* Better mobile touch target */
+
+    .link {
+      color: var(--brand);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(92, 240, 228, 0.35);
+      display: inline-block;
+      min-height: 44px;
+      line-height: 44px;
+      /* Better mobile touch target */
     }
-    .link:hover{ color: var(--accent); }
-    @media (max-width: 768px){
-      .hero{ padding: clamp(40px, 7vw, 80px) 0 32px 0; } /* Adjust hero padding on mobile */
-      .hero-cta{ gap:10px; } /* Tighter gap on mobile */
-      .logos{ gap:10px; } /* Tighter logo spacing on mobile */
-      .wrap{ padding: 0 16px; } /* Reduce horizontal padding on mobile */
+
+    .link:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: clamp(40px, 7vw, 80px) 0 32px 0;
+      }
+
+      /* Adjust hero padding on mobile */
+      .hero-cta {
+        gap: 10px;
+      }
+
+      /* Tighter gap on mobile */
+      .logos {
+        gap: 10px;
+      }
+
+      /* Tighter logo spacing on mobile */
+      .wrap {
+        padding: 0 16px;
+      }
+
+      /* Reduce horizontal padding on mobile */
+    }
+
+    /* Playbook Section */
+    .playbook-section {
+      position: relative;
+      padding: 80px 0;
+      border-top: var(--border);
+      border-bottom: var(--border);
+      background: linear-gradient(180deg, rgba(11, 13, 16, 0.3), rgba(11, 13, 16, 0.8));
+      overflow: hidden;
+    }
+
+    .playbook-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (max-width: 920px) {
+      .playbook-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .deck-preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg);
+      border-radius: 12px;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+      transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+      transition: transform 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .deck-preview:hover {
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+      z-index: 10;
+    }
+
+    .deck-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Fake UI for deck preview if no image */
+    .deck-ui-placeholder {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, #1a1d24, #0b0d10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .deck-title-lg {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .deck-sub {
+      color: var(--brand);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .playbook-content h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .check-icon {
+      color: var(--brand);
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="wrap nav">
@@ -250,10 +619,12 @@
         <span id="menuIcon">☰</span>
       </button>
       <nav class="nav-links" id="navLinks">
+        <a href="#playbook" style="color:var(--brand);">Playbook</a>
         <a href="#services">Services</a>
         <a href="#stack">Tech stack</a>
         <a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank" rel="noopener">Book intro</a>
+        <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank"
+          rel="noopener">Book intro</a>
       </nav>
     </div>
   </header>
@@ -263,13 +634,20 @@
       <div class="wrap hero-grid">
         <div class="animate-in">
           <span class="kicker">Subscription CRM & Lifecycle</span>
-          <h1>CRM that grows <span style="background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">revenue</span> and <span style="background: linear-gradient(90deg, var(--brand-2), var(--brand)); -webkit-background-clip: text; background-clip: text; color: transparent;">retention</span>.</h1>
-          <p class="lead">We design and run data‑driven lifecycle journeys—onboarding, activation, monetisation, and churn prevention—for subscription products.</p>
+          <h1>CRM that grows <span
+              style="background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">revenue</span>
+            and <span
+              style="background: linear-gradient(90deg, var(--brand-2), var(--brand)); -webkit-background-clip: text; background-clip: text; color: transparent;">retention</span>.
+          </h1>
+          <p class="lead">We design and run data‑driven lifecycle journeys—onboarding, activation, monetisation, and
+            churn prevention—for subscription products.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank" rel="noopener">Book a 30‑min intro</a>
+            <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank"
+              rel="noopener">Book a 30‑min intro</a>
             <a class="btn btn-ghost" href="#services">See services</a>
           </div>
-          <div class="tagline" style="margin-top:18px;"><span class="pulse" aria-hidden="true"></span> Available for fractional, project, or advisory work</div>
+          <div class="tagline" style="margin-top:18px;"><span class="pulse" aria-hidden="true"></span> Available for
+            fractional, project, or advisory work</div>
           <div class="logos" aria-label="Companies we've worked with">
             <div class="logo-pill">Audible</div>
             <div class="logo-pill">Native Instruments</div>
@@ -281,7 +659,8 @@
         <div class="hero-card animate-in">
           <div class="ring"></div>
           <h3 style="margin:4px 0 8px; font-size:18px;">What we do</h3>
-          <p class="muted" style="margin:0 0 12px;">Lifecycle strategy, automation, and analytics that move KPIs—not slide decks.</p>
+          <p class="muted" style="margin:0 0 12px;">Lifecycle strategy, automation, and analytics that move KPIs—not
+            slide decks.</p>
           <ul class="bullets">
             <li><strong>Lifecycle frameworks</strong> mapped to states & triggers</li>
             <li><strong>Retention plays</strong>: save journeys, win‑backs, risk signals</li>
@@ -291,11 +670,49 @@
           <div class="contact">
             <span class="muted">Berlin · Working globally</span>
             <a class="link" href="mailto:info@journeylauncher.com">info@journeylauncher.com</a>
-            <a class="link" href="https://www.linkedin.com/company/journeylauncher/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="link" href="https://www.linkedin.com/company/journeylauncher/" target="_blank"
+              rel="noopener">LinkedIn</a>
           </div>
         </div>
       </div>
       <div class="vis-grad" aria-hidden="true"></div>
+    </section>
+
+    <!-- NEW: Lead Magnet Section -->
+    <section id="playbook" class="playbook-section">
+      <div class="wrap playbook-grid">
+        <div class="animate-in">
+          <span class="kicker">Free Resource</span>
+          <h2>The Subscription Lifecycle Playbook</h2>
+          <p class="lead">A 7-slide framework to master Onboarding, Engagement, Attention, and Monetisation.</p>
+
+          <ul class="check-list">
+            <li><span class="check-icon">✓</span> <strong>3 Core Pillars:</strong> Onboarding, Engagement, Retention
+            </li>
+            <li><span class="check-icon">✓</span> <strong>Real Email Examples:</strong> Copy-paste ready templates</li>
+            <li><span class="check-icon">✓</span> <strong>Monetisation Engine:</strong> Upsell & Cross-sell tactics</li>
+          </ul>
+
+          <div style="display:flex; gap:12px; margin-top:32px;">
+            <a class="btn btn-primary" href="deck.html" target="_blank" rel="noopener">
+              <span style="font-size:18px;">📥</span> Get the Free Deck
+            </a>
+            <a class="link" href="deck.html" target="_blank" rel="noopener"
+              style="align-self:center; border:none;">Preview Online &rarr;</a>
+          </div>
+        </div>
+
+        <div class="deck-preview animate-in" style="transition-delay: 0.1s;">
+          <a href="deck.html" target="_blank" style="text-decoration:none; display:block; width:100%; height:100%;">
+            <div class="deck-ui-placeholder">
+              <span class="deck-title-lg">The Subscription Lifecycle Playbook</span>
+              <span class="deck-sub">Read the full deck</span>
+              <div class="btn btn-ghost" style="margin-top:20px; pointer-events:none;">Click to Open</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="vis-grad" aria-hidden="true" style="transform: rotate(180deg); opacity:0.5;"></div>
     </section>
 
     <section id="services">
@@ -385,17 +802,20 @@
             <div class="muted">Quickest path to value: a short intro to align on goals, metrics, and scope.</div>
           </div>
         </div>
-        <div class="card animate-in" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div class="card animate-in"
+          style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div>
             <h3 style="margin:0 0 6px 0;">Let’s talk</h3>
             <div class="muted">Berlin · Remote or on‑site</div>
             <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap;">
               <a class="link" href="mailto:info@journeylauncher.com">info@journeylauncher.com</a>
-              <a class="link" href="https://www.linkedin.com/company/journeylauncher/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="link" href="https://www.linkedin.com/company/journeylauncher/" target="_blank"
+                rel="noopener">LinkedIn</a>
             </div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank" rel="noopener">Book intro</a>
+            <a class="btn btn-primary" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank"
+              rel="noopener">Book intro</a>
             <a class="btn btn-ghost" href="mailto:info@journeylauncher.com">Email me</a>
           </div>
         </div>
@@ -413,19 +833,26 @@
   </footer>
 
   <!-- Booking Modal (no form on homepage) -->
-  <dialog id="bookModal" style="border:none; border-radius:16px; padding:0; width:min(680px, 92%); background:#0c1014; color:#e7edf5;">
-    <div style="padding:20px 20px 6px; display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid rgba(255,255,255,0.08);">
+  <dialog id="bookModal"
+    style="border:none; border-radius:16px; padding:0; width:min(680px, 92%); background:#0c1014; color:#e7edf5;">
+    <div
+      style="padding:20px 20px 6px; display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid rgba(255,255,255,0.08);">
       <strong>Book a 30‑min intro</strong>
-      <button id="closeModal" style="background:transparent;border:none;color:#e7edf5;font-size:20px;cursor:pointer;">×</button>
+      <button id="closeModal"
+        style="background:transparent;border:none;color:#e7edf5;font-size:20px;cursor:pointer;">×</button>
     </div>
     <div style="padding:16px 20px 22px; display:grid; gap:14px;">
       <p class="muted" style="margin:0;">Pick your preferred option:</p>
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <a class="btn btn-primary" id="calendlyLink" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank" rel="noopener">Open Calendly</a>
+        <a class="btn btn-primary" id="calendlyLink" href="https://calendly.com/saleh-journeylauncher/30min"
+          target="_blank" rel="noopener">Open Calendly</a>
         <a class="btn btn-ghost" id="gcalLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
-        <a class="btn btn-ghost" href="mailto:info@journeylauncher.com?subject=Intro%20call&body=Hi%20Saleh%2C%20I'd%20like%20to%20book%20a%2030-min%20intro.%20My%20goals%3A%20[add].%20My%20stack%3A%20[add]." >Email instead</a>
+        <a class="btn btn-ghost"
+          href="mailto:info@journeylauncher.com?subject=Intro%20call&body=Hi%20Saleh%2C%20I'd%20like%20to%20book%20a%2030-min%20intro.%20My%20goals%3A%20[add].%20My%20stack%3A%20[add].">Email
+          instead</a>
       </div>
-      <div class="muted" style="font-size:12px;">Tip: paste your Calendly/Cal.com URL into the <code>CALENDLY_URL</code> variable in the script for a seamless experience.</div>
+      <div class="muted" style="font-size:12px;">Tip: paste your Calendly/Cal.com URL into the <code>CALENDLY_URL</code>
+        variable in the script for a seamless experience.</div>
     </div>
   </dialog>
 
@@ -470,22 +897,23 @@
     const bookModal = document.getElementById('bookModal');
     const openers = [document.getElementById('bookBtn'), document.getElementById('bookBtn2'), document.getElementById('bookBtn3')].filter(Boolean);
     const closeModal = document.getElementById('closeModal');
-    openers.forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); bookModal.showModal(); }));
-    closeModal.addEventListener('click', ()=> bookModal.close());
+    openers.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); bookModal.showModal(); }));
+    closeModal.addEventListener('click', () => bookModal.close());
 
     // Links
     const calendlyLink = document.getElementById('calendlyLink');
     const gcalLink = document.getElementById('gcalLink');
-    if(CALENDLY_URL){ calendlyLink.href = CALENDLY_URL; } else { calendlyLink.href = "mailto:info@journeylauncher.com?subject=Send%20me%20your%20Calendly%20link&body=Paste%20your%20Calendly/Cal.com%20URL%20here%20and%20I'll%20embed%20it."; }
+    if (CALENDLY_URL) { calendlyLink.href = CALENDLY_URL; } else { calendlyLink.href = "mailto:info@journeylauncher.com?subject=Send%20me%20your%20Calendly%20link&body=Paste%20your%20Calendly/Cal.com%20URL%20here%20and%20I'll%20embed%20it."; }
     gcalLink.href = GCAL_BASE;
 
     // Reveal animations
-    const observer = new IntersectionObserver((entries)=>{
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('show');
       })
-    }, {threshold: 0.12});
+    }, { threshold: 0.12 });
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
   </script>
 </body>
+
 </html>
