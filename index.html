@@ -7,11 +7,23 @@
   <title>Vibe Marketing — Get a Complete AI Marketing System in One Session</title>
   <meta name="description"
     content="Book a free 30-minute session. Get a complete AI marketing system — research, strategy, positioning, and assets — built for your business." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.journeylauncher.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.journeylauncher.com/" />
+  <meta property="og:title" content="Vibe Marketing — AI Marketing System in One Session" />
+  <meta property="og:description" content="Book a free 30-minute session. Get a complete AI marketing system — research, strategy, positioning, and assets — built for your business." />
+  <meta property="og:image" content="https://www.journeylauncher.com/og-image.png" />
+  <meta property="og:site_name" content="Vibe Marketing" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vibe Marketing — AI Marketing System in One Session" />
+  <meta name="twitter:description" content="Book a free 30-minute session. Get a complete AI marketing system — research, strategy, positioning, and assets — built for your business." />
+  <meta name="twitter:image" content="https://www.journeylauncher.com/og-image.png" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="logo-new.svg">
@@ -26,7 +38,123 @@
     gtag('config', 'G-ETQ01QD1R6');
   </script>
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.journeylauncher.com/#organization",
+        "name": "Vibe Marketing",
+        "alternateName": "Journey Launcher",
+        "url": "https://www.journeylauncher.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.journeylauncher.com/logo-new.svg"
+        },
+        "email": "info@journeylauncher.com",
+        "description": "AI marketing consulting that builds complete marketing systems in one session.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Berlin",
+          "addressCountry": "DE"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "info@journeylauncher.com",
+          "url": "https://calendly.com/saleh-journeylauncher/30min",
+          "availableLanguage": "English"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/journeylauncher"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.journeylauncher.com/#website",
+        "name": "Vibe Marketing",
+        "url": "https://www.journeylauncher.com",
+        "publisher": { "@id": "https://www.journeylauncher.com/#organization" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.journeylauncher.com/#webpage",
+        "url": "https://www.journeylauncher.com",
+        "name": "Vibe Marketing — Get a Complete AI Marketing System in One Session",
+        "isPartOf": { "@id": "https://www.journeylauncher.com/#website" },
+        "about": { "@id": "https://www.journeylauncher.com/#organization" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.journeylauncher.com/#service",
+        "name": "Vibe Marketing",
+        "url": "https://www.journeylauncher.com",
+        "email": "info@journeylauncher.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Berlin",
+          "addressCountry": "DE"
+        },
+        "areaServed": { "@type": "Country", "name": "Germany" },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "AI Marketing Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI Marketing System Build",
+                "description": "Complete AI-powered marketing system built in a single session.",
+                "provider": { "@id": "https://www.journeylauncher.com/#organization" }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+
   <style>
+    /* ===== SELF-HOSTED FONTS ===== */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url(fonts/inter-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url(fonts/inter-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url(fonts/space-grotesk-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url(fonts/space-grotesk-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
     /* ===== DESIGN TOKENS ===== */
     :root {
       --dark-bg: #0a0a0a;
@@ -951,7 +1079,7 @@
       margin-bottom: 48px;
     }
 
-    .footer-col h4 {
+    .footer-col-heading {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 14px;
       font-weight: 600;
@@ -1056,7 +1184,7 @@
       <div class="wrap hero-grid">
         <div class="animate-in">
           <span class="label hero-label">DONE-WITH-YOU AI MARKETING</span>
-          <h1>Get a Complete Marketing System. Built in One Session.</h1>
+          <h1>Get a Complete AI Marketing System. Built in One Session.</h1>
           <p class="hero-subtitle">Stop stitching together ChatGPT prompts. In one session, I build you an AI marketing system — research, strategy, copy, and assets — tailored to your business.</p>
           <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
             <a class="btn btn-outline-light" href="https://calendly.com/saleh-journeylauncher/30min" target="_blank"
@@ -1370,13 +1498,13 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>How It Works</h4>
+          <span class="footer-col-heading">How It Works</span>
           <a href="#how-it-works">Real-Time Research</a>
           <a href="#how-it-works">Expert Frameworks</a>
           <a href="#how-it-works">Build Sequence</a>
         </div>
         <div class="footer-col">
-          <h4>What You Get</h4>
+          <span class="footer-col-heading">What You Get</span>
           <a href="#what-you-get">Research Brief</a>
           <a href="#what-you-get">Positioning</a>
           <a href="#what-you-get">Content Plan</a>
@@ -1384,11 +1512,11 @@
           <a href="#what-you-get">Iteration</a>
         </div>
         <div class="footer-col">
-          <h4>Resources</h4>
+          <span class="footer-col-heading">Resources</span>
           <a href="deck.html" target="_blank">Free Playbook</a>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
+          <span class="footer-col-heading">Contact</span>
           <a href="mailto:info@journeylauncher.com">info@journeylauncher.com</a>
           <a href="https://www.linkedin.com/company/journeylauncher/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://calendly.com/saleh-journeylauncher/30min" target="_blank" rel="noopener">Book a Free Session</a>
