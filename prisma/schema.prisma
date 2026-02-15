@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Submission {
+  id                    String   @id @default(cuid())
+  landingPageUrl        String?  @map("landing_page_url")
+  businessDesc          String?  @map("business_desc")
+  clmScore              Int?     @map("clm_score")
+  personalisationScore  Int?     @map("personalisation_score")
+  dataAvailability      String?  @map("data_availability")
+  lifecycleGaps         Json?    @map("lifecycle_gaps")
+  dataSources           Json?    @map("data_sources")
+  dataSourceOther       String?  @map("data_source_other")
+  scrapedData           Json?    @map("scraped_data")
+  generatedFlow         Json?    @map("generated_flow")
+  webhookSummary        Json?    @map("webhook_summary")
+  email                 String?
+  isDeleted             Boolean  @default(false) @map("is_deleted")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("submissions")
+  @@index([email])
+  @@index([createdAt])
+}
+
+model EmailCapture {
+  id        String   @id @default(cuid())
+  email     String
+  source    String?  @default("flow_wizard")
+  isDeleted Boolean  @default(false) @map("is_deleted")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("email_captures")
+  @@index([email])
+  @@index([createdAt])
+}

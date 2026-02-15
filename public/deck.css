@@ -1,0 +1,289 @@
+:root {
+  --bg: #0b0d10;
+  --card: rgba(255, 255, 255, 0.04);
+  --text: #e7edf5;
+  --muted: #9fb2c7;
+  --brand: #5cf0e4;
+  /* cyan */
+  --brand-2: #8c7cff;
+  /* violet */
+  --accent: #00ffd1;
+  /* neon */
+  --warn: #ffb86b;
+  --radius: 14px;
+  --border: 1px solid rgba(255, 255, 255, 0.08);
+  --grad: radial-gradient(1000px 600px at 10% -10%, rgba(92, 240, 228, 0.18), transparent 55%),
+    radial-gradient(800px 520px at 90% 0%, rgba(140, 124, 255, 0.20), transparent 50%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #000;
+  /* Print bleed background */
+  color: var(--text);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Slide Container */
+.slide {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  /* Fullscreen for web view */
+  overflow: hidden;
+  background: var(--bg);
+  background-image: var(--grad);
+  page-break-after: always;
+  break-after: page;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 80px;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  margin: 0;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 64px;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 48px;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  color: var(--brand);
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 65ch;
+  margin-top: 0;
+}
+
+/* Components */
+.kicker {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--brand-2);
+  margin-bottom: 16px;
+  display: block;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.card {
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+/* Realistic Email Component */
+.email-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  color: #334155;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.email-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #f8fafc;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.email-avatar {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.email-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.email-sender {
+  font-weight: 700;
+  font-size: 10px;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.email-subject {
+  font-size: 10px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.email-body {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.email-body p {
+  color: #334155;
+  font-size: 11px;
+  margin: 0;
+  line-height: 1.5;
+  max-width: none;
+}
+
+.email-body strong {
+  color: #0f172a;
+}
+
+.email-cta {
+  display: inline-block;
+  background: #0f172a;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 10px;
+  margin-top: 8px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.email-cta.secondary {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+/* Discount Code Visual */
+.discount-code {
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+  padding: 8px;
+  text-align: center;
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--brand-2);
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* Utility */
+.center-content {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-crumb {
+  position: absolute;
+  bottom: 40px;
+  right: 80px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: 'Space Grotesk';
+}
+
+/* Logo */
+.logo-link {
+  position: absolute;
+  top: 40px;
+  right: 80px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Print Overrides */
+@media print {
+  @page {
+    size: 1920px 1080px;
+    /* Force 16:9 Landscape */
+    margin: 0;
+  }
+
+  body,
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    padding: 80px 100px;
+    /* Adjust padding for print scale */
+  }
+
+  .slide {
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
