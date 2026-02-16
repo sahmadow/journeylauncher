@@ -14,9 +14,9 @@ export function LeadMagnet() {
           viewport={{ once: true }}
           className="mx-auto max-w-[720px] text-center"
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00c8ff]/40 bg-[#00c8ff]/10 px-4 py-1.5">
-            <Sparkles size={14} className="text-[#00c8ff]" />
-            <span className="font-mono text-[11px] font-semibold text-[#00c8ff]">Free Tool</span>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#0F2A33]/40 bg-[#0F2A33]/10 px-4 py-1.5">
+            <Sparkles size={14} className="text-[#0F2A33]" />
+            <span className="font-mono text-[11px] font-semibold text-[#0F2A33]">Free Tool</span>
           </div>
 
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -30,7 +30,7 @@ export function LeadMagnet() {
 
           <Link
             href="/flow"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#00c8ff] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#00aadd]"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#0F2A33] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a3d4a]"
           >
             Generate My CRM Flow
             <ArrowRight size={16} />
@@ -41,7 +41,7 @@ export function LeadMagnet() {
             <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-[#ef4444]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#0F2A33]" />
               <span className="ml-3 font-mono text-[11px] text-muted-foreground">
                 CRM Flow Generator
               </span>
@@ -56,7 +56,7 @@ export function LeadMagnet() {
                     <div
                       className="h-2.5 w-2.5 rounded-full"
                       style={{
-                        background: ["#3b82f6", "#8b5cf6", "#f59e0b", "#00c8ff"][i],
+                        background: ["#3b82f6", "#8b5cf6", "#f59e0b", "#0F2A33"][i],
                       }}
                     />
                     <span className="text-xs font-medium">{stage}</span>

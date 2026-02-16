@@ -62,7 +62,7 @@ export function Contact() {
             </a>
             <Link
               href="/flow"
-              className="flex items-center justify-center gap-2 rounded-lg bg-[#00c8ff] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#00aadd]"
+              className="flex items-center justify-center gap-2 rounded-lg bg-[#0F2A33] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a3d4a]"
             >
               Generate Free CRM Flow
               <ArrowRight size={16} />
