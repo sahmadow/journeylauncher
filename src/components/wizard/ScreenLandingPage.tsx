@@ -54,7 +54,7 @@ export function ScreenLandingPage({ onSubmit, isLoading, error }: Props) {
       </div>
       <form onSubmit={handleSubmit} className="flex w-full gap-3">
         <Input type="text" placeholder="https://yoursite.com" value={url} onChange={(e) => setUrl(e.target.value)} className="h-12 text-base" autoFocus />
-        <Button type="submit" size="lg" disabled={!url.trim()} className="bg-[#00c8ff] text-white hover:bg-[#00aadd]">Analyze</Button>
+        <Button type="submit" size="lg" disabled={!url.trim()} className="bg-[#a020f0] text-white hover:bg-[#8818cc]">Analyze</Button>
       </form>
       {error && <p className="text-sm text-destructive">{error}</p>}
     </motion.div>

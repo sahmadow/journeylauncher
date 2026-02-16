@@ -34,9 +34,9 @@
   --color-surface: #f7f7f7;
   --color-border-strong: #252525;
   --color-border-light: #252525;
-  --color-cta: #00c8ff;
-  --color-cta-hover: #00aadd;
-  --color-cta-blue: #a020f0;
+  --color-cta: #a020f0;
+  --color-cta-hover: #8818cc;
+  --color-cta-blue: #00c8ff;
 }
 
 :root {
@@ -53,7 +53,7 @@
   --secondary-foreground: #0a0a0a;
   --muted: #f7f7f7;
   --muted-foreground: #a2a2a2;
-  --accent: #00c8ff;
+  --accent: #a020f0;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --border: #252525;
@@ -128,7 +128,7 @@
 .hero-glow {
   background: radial-gradient(
     60% 60% at 50% 40%,
-    rgba(0, 200, 255, 0.05) 0%,
+    rgba(160, 32, 240, 0.05) 0%,
     transparent 100%
   );
 }

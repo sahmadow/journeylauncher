@@ -37,13 +37,13 @@ export function WhoItsFor() {
         <div className="mx-auto grid max-w-[860px] grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-2">
           {/* Good fit */}
           <div className="bg-white p-8 md:p-10">
-            <h3 className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#00c8ff]">
+            <h3 className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#a020f0]">
               Great Fit
             </h3>
             <ul className="space-y-4">
               {GOOD_FIT.map((item) => (
                 <li key={item} className="flex gap-3 text-sm leading-relaxed">
-                  <Check size={16} className="mt-0.5 shrink-0 text-[#00c8ff]" />
+                  <Check size={16} className="mt-0.5 shrink-0 text-[#a020f0]" />
                   <span className="text-foreground">{item}</span>
                 </li>
               ))}

@@ -14,9 +14,9 @@ export function LeadMagnet() {
           viewport={{ once: true }}
           className="mx-auto max-w-[720px] text-center"
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00c8ff]/40 bg-[#00c8ff]/10 px-4 py-1.5">
-            <Sparkles size={14} className="text-[#00c8ff]" />
-            <span className="font-mono text-[11px] font-semibold text-[#00c8ff]">Free Tool</span>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#a020f0]/40 bg-[#a020f0]/10 px-4 py-1.5">
+            <Sparkles size={14} className="text-[#a020f0]" />
+            <span className="font-mono text-[11px] font-semibold text-[#a020f0]">Free Tool</span>
           </div>
 
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -30,7 +30,7 @@ export function LeadMagnet() {
 
           <Link
             href="/flow"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#00c8ff] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#00aadd]"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#a020f0] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#8818cc]"
           >
             Generate My CRM Flow
             <ArrowRight size={16} />
@@ -56,7 +56,7 @@ export function LeadMagnet() {
                     <div
                       className="h-2.5 w-2.5 rounded-full"
                       style={{
-                        background: ["#3b82f6", "#8b5cf6", "#f59e0b", "#00c8ff"][i],
+                        background: ["#3b82f6", "#8b5cf6", "#f59e0b", "#a020f0"][i],
                       }}
                     />
                     <span className="text-xs font-medium">{stage}</span>

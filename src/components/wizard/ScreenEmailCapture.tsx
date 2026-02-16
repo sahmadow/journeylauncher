@@ -26,15 +26,15 @@ export function ScreenEmailCapture({ onSubmit, isLoading }: Props) {
   return (
     <motion.div key="email-capture" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="flex w-full max-w-md flex-col items-center gap-8 pt-16">
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#00c8ff]/10">
-          <Mail size={28} className="text-[#00c8ff]" />
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#a020f0]/10">
+          <Mail size={28} className="text-[#a020f0]" />
         </div>
         <h2 className="mb-2 text-2xl font-bold">Your flow is ready!</h2>
         <p className="text-muted-foreground">Enter your email to see your personalised CRM flow and receive a copy.</p>
       </div>
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
         <Input type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12 text-base" autoFocus />
-        <Button type="submit" size="lg" disabled={!isValid || isLoading} className="bg-[#00c8ff] text-white hover:bg-[#00aadd]">
+        <Button type="submit" size="lg" disabled={!isValid || isLoading} className="bg-[#a020f0] text-white hover:bg-[#8818cc]">
           {isLoading ? "Saving..." : "See My CRM Flow"}
         </Button>
       </form>

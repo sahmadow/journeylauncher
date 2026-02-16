@@ -23,7 +23,7 @@ export function Hero() {
           <h1 className="mt-4 text-4xl font-bold leading-[1.08] tracking-tight md:text-[56px]">
             Build Lifecycle Systems
             <br />
-            <span className="text-[#00c8ff]">That Convert & Retain</span>
+            <span className="text-[#a020f0]">That Convert & Retain</span>
           </h1>
 
           {/* Subtitle */}
@@ -37,7 +37,7 @@ export function Hero() {
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/flow"
-              className="flex items-center gap-2 rounded-lg bg-[#00c8ff] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#00aadd]"
+              className="flex items-center gap-2 rounded-lg bg-[#a020f0] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#8818cc]"
             >
               Generate Free CRM Flow
               <ArrowRight size={16} />
