@@ -211,7 +211,10 @@ Stages: ${JSON.stringify(lifecycle_gaps)}
 ${typeStrategies[businessType] || typeStrategies.saas}
 
 For each stage, generate 6-9 nodes with: id, type (trigger/email/wait/condition).
-Email nodes: subject, preview_text, body_html, cta_text, cta_url.
+Trigger nodes MUST have: label, description.
+Email nodes MUST have: subject, preview_text, body_html, cta_text, cta_url.
+Wait nodes MUST have: duration.
+Condition nodes MUST have: condition, yes_label, no_label.
 Return JSON: {"stages": [...]}. Return ONLY valid JSON.`;
 
       const result = await model.generateContent({ contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 4096 } });

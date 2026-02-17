@@ -21,8 +21,8 @@ export function FlowNode({ node, stageColor, brandColors, logoUrl, brandName }: 
       <div className="flex w-64 items-center gap-3 rounded-lg border-2 px-4 py-3" style={{ borderColor: stageColor }}>
         <div className="flex h-8 w-8 items-center justify-center rounded-full text-white text-sm font-bold" style={{ backgroundColor: stageColor }}>T</div>
         <div>
-          <p className="text-sm font-semibold">{node.label}</p>
-          {node.description && <p className="text-xs text-muted-foreground">{node.description}</p>}
+          <p className="text-sm font-semibold">{node.label || "Entry Trigger"}</p>
+          {(node.description) && <p className="text-xs text-muted-foreground">{node.description}</p>}
         </div>
       </div>
     );
