@@ -5,15 +5,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FlowNode as FlowNodeType } from "@/types";
 import { EmailPreview } from "./EmailPreview";
 
+const STAGE_TRIGGER_LABELS: Record<string, string> = {
+  "Early Engagement": "New Customer",
+  Engagement: "Active User",
+  Monetisation: "Started Trial",
+  Retention: "Usage Dropped",
+};
+
 interface Props {
   node: FlowNodeType;
   stageColor: string;
+  stageName: string;
   brandColors: string[];
   logoUrl: string;
   brandName: string;
 }
 
-export function FlowNode({ node, stageColor, brandColors, logoUrl, brandName }: Props) {
+export function FlowNode({ node, stageColor, stageName, brandColors, logoUrl, brandName }: Props) {
   const [showPreview, setShowPreview] = useState(false);
 
   if (node.type === "trigger") {
@@ -21,7 +29,7 @@ export function FlowNode({ node, stageColor, brandColors, logoUrl, brandName }: 
       <div className="flex w-64 items-center gap-3 rounded-lg border-2 px-4 py-3" style={{ borderColor: stageColor }}>
         <div className="flex h-8 w-8 items-center justify-center rounded-full text-white text-sm font-bold" style={{ backgroundColor: stageColor }}>T</div>
         <div>
-          <p className="text-sm font-semibold">{node.label || "Entry Trigger"}</p>
+          <p className="text-sm font-semibold">{node.label || STAGE_TRIGGER_LABELS[stageName] || "New Customer"}</p>
           {(node.description) && <p className="text-xs text-muted-foreground">{node.description}</p>}
         </div>
       </div>
