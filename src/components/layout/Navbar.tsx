@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { label: "What We Use", href: "#what-we-use" },
   { label: "We Advised", href: "#we-advised" },
   { label: "What You Get", href: "#what-you-get" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -26,15 +27,25 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         {/* Desktop CTAs */}
@@ -69,16 +80,27 @@ export function Navbar() {
       {open && (
         <div className="border-t border-border bg-white px-6 pb-6 md:hidden">
           <div className="flex flex-col gap-4 pt-4">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium text-muted-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.href.startsWith("/") ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm font-medium text-muted-foreground"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm font-medium text-muted-foreground"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <div className="flex flex-col gap-3 pt-4">
               <a
                 href="https://calendly.com/saleh-journeylauncher/30min"

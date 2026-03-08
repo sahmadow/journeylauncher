@@ -20,8 +20,9 @@ const FOOTER_COLS = [
   {
     title: "Company",
     links: [
+      { label: "Blog", href: "/blog" },
       { label: "Contact", href: "#contact" },
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/salehahmadov/" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/108653018/" },
     ],
   },
 ];
