@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getAllArticles } from "@/lib/articles";
+import { BlogCardCover } from "@/components/blog/BlogCardCover";
 
 export const metadata: Metadata = {
   title: "Blog — Journey Launcher",
@@ -42,41 +43,41 @@ export default function BlogPage() {
           <p className="text-muted-foreground">No articles yet. Check back soon.</p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
+            {articles.map((article, i) => (
               <Link
                 key={article.slug}
                 href={`/blog/${article.slug}`}
-                className="group rounded-lg border border-border p-6 transition-colors hover:bg-secondary"
+                className="group overflow-hidden rounded-xl border border-border transition-all hover:shadow-lg hover:-translate-y-0.5"
               >
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  <time dateTime={article.date}>
-                    {new Date(article.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                  <span>&middot;</span>
-                  <span>{article.readingTime}</span>
-                </div>
-                <h2 className="mt-3 text-lg font-semibold tracking-tight group-hover:text-[#0F2A33]">
-                  {article.title}
-                </h2>
-                <p className="mt-2 text-sm text-muted-foreground line-clamp-3">
-                  {article.description}
-                </p>
-                {article.tags.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {article.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-secondary px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                <BlogCardCover
+                  index={i}
+                  cover={article.cover}
+                  coverIcon={article.coverIcon}
+                  tag={article.tags[0]}
+                />
+
+                <div className="p-6">
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <time dateTime={article.date}>
+                      {new Date(article.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <span>&middot;</span>
+                    <span>{article.readingTime}</span>
                   </div>
-                )}
+                  <h2 className="mt-3 text-lg font-semibold tracking-tight group-hover:text-[#0F2A33]">
+                    {article.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                    {article.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-[#0F2A33] opacity-0 transition-opacity group-hover:opacity-100">
+                    Read article &rarr;
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

@@ -14,6 +14,8 @@ export interface ArticleMeta {
   tags: string[];
   readingTime: string;
   published: boolean;
+  cover?: string;
+  coverIcon?: string;
 }
 
 export interface Article extends ArticleMeta {
@@ -41,6 +43,8 @@ export function getAllArticles(): ArticleMeta[] {
         tags: data.tags ?? [],
         readingTime: stats.text,
         published: data.published !== false,
+        cover: data.cover,
+        coverIcon: data.coverIcon,
       };
     })
     .filter((a) => a.published)
@@ -64,6 +68,8 @@ export function getArticleBySlug(slug: string): Article | null {
     tags: data.tags ?? [],
     readingTime: stats.text,
     published: data.published !== false,
+    cover: data.cover,
+    coverIcon: data.coverIcon,
     content,
   };
 

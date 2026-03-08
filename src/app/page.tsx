@@ -7,9 +7,13 @@ import { WhatWeUse } from "@/components/sections/WhatWeUse";
 import { WhatYouGet } from "@/components/sections/WhatYouGet";
 import { LeadMagnet } from "@/components/sections/LeadMagnet";
 import { WhoItsFor } from "@/components/sections/WhoItsFor";
+import { LatestArticles } from "@/components/sections/LatestArticles";
 import { Contact } from "@/components/sections/Contact";
+import { getAllArticles } from "@/lib/articles";
 
 export default function Home() {
+  const latestArticles = getAllArticles().slice(0, 3);
+
   return (
     <>
       <Navbar />
@@ -21,6 +25,7 @@ export default function Home() {
         <WhatYouGet />
         <LeadMagnet />
         <WhoItsFor />
+        <LatestArticles articles={latestArticles} />
         <Contact />
       </main>
       <Footer />
