@@ -42,7 +42,7 @@ export function Navbar() {
           </a>
           <Link
             href="/flow"
-            className="hidden rounded-lg bg-[#0F2A33] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1a3d4a] sm:block"
+            className="hidden rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:block"
           >
             Generate Free CRM Flow
           </Link>
@@ -90,7 +90,7 @@ export function Navbar() {
               <Link
                 href="/flow"
                 onClick={() => setOpen(false)}
-                className="rounded-lg bg-[#0F2A33] px-4 py-2.5 text-center text-sm font-medium text-white"
+                className="rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-medium text-foreground"
               >
                 Generate Free CRM Flow
               </Link>

@@ -3,22 +3,77 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAnimationFrame } from "@/hooks/useAnimationFrame";
+import {
+  TrendingUp,
+  Zap,
+  MessageCircle,
+  DollarSign,
+  RefreshCw,
+  type LucideIcon,
+} from "lucide-react";
 
-const STAGES = [
-  { label: "Acquire", color: "#00C978", icon: "↗" },
-  { label: "Activate", color: "#00A8E8", icon: "⚡" },
-  { label: "Engage", color: "#8B5CF6", icon: "💬" },
-  { label: "Monetise", color: "#D49400", icon: "💰" },
-  { label: "Retain", color: "#E05555", icon: "♻" },
+const STAGES: {
+  label: string;
+  color: string;
+  icon: LucideIcon;
+  metric: { label: string; suffix: string; start: number; end: number };
+}[] = [
+  {
+    label: "Acquire",
+    color: "#00C978",
+    icon: TrendingUp,
+    metric: { label: "Conversion Rate", suffix: "%", start: 2.4, end: 4.8 },
+  },
+  {
+    label: "Activate",
+    color: "#00A8E8",
+    icon: Zap,
+    metric: { label: "Activation Rate", suffix: "%", start: 45, end: 67 },
+  },
+  {
+    label: "Engage",
+    color: "#8B5CF6",
+    icon: MessageCircle,
+    metric: { label: "Monthly Active Users", suffix: "K", start: 12, end: 28 },
+  },
+  {
+    label: "Monetise",
+    color: "#D49400",
+    icon: DollarSign,
+    metric: { label: "ARPU", suffix: "", start: 24, end: 52 },
+  },
+  {
+    label: "Retain",
+    color: "#E05555",
+    icon: RefreshCw,
+    metric: { label: "Retention", suffix: "%", start: 58, end: 82 },
+  },
 ];
+
+const LTV_CONFIG = { min: 120, max: 340 };
 
 const PARTICLE_COUNT = 40;
 
-const METRICS = [
-  { label: "Retention", value: "+34%" },
-  { label: "LTV", value: "2.8×" },
-  { label: "Churn", value: "-41%" },
-];
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function formatMetricValue(stage: (typeof STAGES)[number], progress: number) {
+  const eased = easeOutCubic(progress);
+  const { start, end, suffix } = stage.metric;
+  const value = start + (end - start) * eased;
+  const prefix = stage.metric.label === "ARPU" ? "$" : "";
+  if (suffix === "K") return `${prefix}${Math.round(value)}K`;
+  if (suffix === "%") return `${prefix}${value.toFixed(1)}%`;
+  return `${prefix}$${Math.round(value)}`;
+}
+
+function computeLTV(activeStage: number, progress: number) {
+  const totalProgress =
+    (activeStage + easeOutCubic(progress)) / STAGES.length;
+  const { min, max } = LTV_CONFIG;
+  return Math.round(min + (max - min) * totalProgress);
+}
 
 /* ------------------------------------------------------------------ */
 /*  Lifecycle Ring SVG                                                 */
@@ -27,20 +82,21 @@ const METRICS = [
 function LifecycleRing({
   activeStage,
   progress,
+  ltvValue,
 }: {
   activeStage: number;
   progress: number;
+  ltvValue: number;
 }) {
-  const size = 420;
-  const cx = size / 2;
-  const cy = size / 2;
+  const viewBoxSize = 420;
+  const cx = viewBoxSize / 2;
+  const cy = viewBoxSize / 2;
   const radius = 160;
 
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+      className="h-[420px] w-[420px]"
       style={{ overflow: "visible" }}
     >
       <defs>
@@ -92,6 +148,7 @@ function LifecycleRing({
         const y = cy + radius * Math.sin(angle);
         const isActive = i === activeStage;
         const nodeRadius = isActive ? 36 : 24;
+        const Icon = stage.icon;
 
         return (
           <g
@@ -126,22 +183,34 @@ function LifecycleRing({
               }}
             />
 
-            {/* Icon */}
-            <text
-              x={x}
-              y={y + 1}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fontSize={isActive ? 18 : 13}
-              style={{
-                transition: "all 0.4s ease",
-                opacity: isActive ? 1 : 0.5,
-              }}
+            {/* Lucide Icon via foreignObject */}
+            <foreignObject
+              x={x - nodeRadius * 0.5}
+              y={y - nodeRadius * 0.5}
+              width={nodeRadius}
+              height={nodeRadius}
+              style={{ pointerEvents: "none" }}
             >
-              {stage.icon}
-            </text>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  transition: "opacity 0.4s ease",
+                  opacity: isActive ? 1 : 0.5,
+                }}
+              >
+                <Icon
+                  size={isActive ? 18 : 13}
+                  color={isActive ? "#fff" : stage.color}
+                  strokeWidth={2}
+                />
+              </div>
+            </foreignObject>
 
-            {/* Label */}
+            {/* Label — hidden on mobile via CSS class */}
             <text
               x={x}
               y={y + nodeRadius + 18}
@@ -151,7 +220,11 @@ function LifecycleRing({
               fontFamily="var(--font-sans)"
               fontWeight={isActive ? 700 : 400}
               letterSpacing="0.05em"
-              style={{ transition: "all 0.4s ease", textTransform: "uppercase" }}
+              className="hidden md:block"
+              style={{
+                transition: "all 0.4s ease",
+                textTransform: "uppercase",
+              }}
             >
               {stage.label}
             </text>
@@ -159,28 +232,40 @@ function LifecycleRing({
         );
       })}
 
-      {/* Center pulse */}
+      {/* Center — animated LTV */}
       <circle
         cx={cx}
         cy={cy}
-        r={28}
+        r={32}
         fill="rgba(15,42,51,0.03)"
         stroke="rgba(15,42,51,0.08)"
         strokeWidth="1"
       />
       <text
         x={cx}
-        y={cy + 1}
+        y={cy - 6}
         textAnchor="middle"
         dominantBaseline="central"
-        fill="rgba(15,42,51,0.5)"
-        fontSize="10"
+        fill="rgba(15,42,51,0.4)"
+        fontSize="8"
         fontFamily="var(--font-sans)"
         fontWeight="600"
         letterSpacing="0.15em"
         style={{ textTransform: "uppercase" }}
       >
         LTV
+      </text>
+      <text
+        x={cx}
+        y={cy + 10}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="rgba(15,42,51,0.7)"
+        fontSize="14"
+        fontFamily="var(--font-sans)"
+        fontWeight="700"
+      >
+        ${ltvValue}
       </text>
     </svg>
   );
@@ -288,6 +373,7 @@ export function Hero() {
   const [activeStage, setActiveStage] = useState(0);
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
@@ -303,7 +389,11 @@ export function Hero() {
       const p = Math.min(elapsed / cycleDuration, 1);
       setProgress(p);
       if (p >= 1) {
-        setActiveStage((prev) => (prev + 1) % STAGES.length);
+        setActiveStage((prev) => {
+          setTransitioning(true);
+          setTimeout(() => setTransitioning(false), 300);
+          return (prev + 1) % STAGES.length;
+        });
         start = now;
         setProgress(0);
       }
@@ -313,8 +403,12 @@ export function Hero() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  const ltvValue = computeLTV(activeStage, progress);
+  const metricDisplay = formatMetricValue(STAGES[activeStage], progress);
+  const currentMetric = STAGES[activeStage].metric;
+
   return (
-    <section className="hero-glow relative overflow-hidden py-28 md:py-40">
+    <section className="hero-glow relative overflow-hidden py-16 md:py-24">
       {/* Ambient gradient */}
       <div
         className="absolute inset-0 transition-all duration-1000"
@@ -338,68 +432,98 @@ export function Hero() {
 
       <FloatingParticles activeStage={activeStage} />
 
-      <div className="relative z-10 mx-auto flex max-w-[900px] flex-col items-center gap-8 px-6 text-center">
-        {/* Tagline */}
+      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-8 px-6 md:flex-row md:items-center md:gap-12">
+        {/* Ring — left on desktop, below on mobile */}
         <div
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
-          }}
-        >
-          <span className="inline-block rounded-full border border-border px-4 py-1.5 font-mono text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-            CRM & Lifecycle Marketing
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h1
-          className="text-4xl font-bold leading-[1.08] tracking-tight md:text-[56px]"
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
-          }}
-        >
-          Build Lifecycle Systems
-          <br />
-          That{" "}
-          <span
-            style={{
-              color: STAGES[activeStage].color,
-              transition: "color 0.6s ease",
-            }}
-          >
-            {STAGES[activeStage].label}
-          </span>
-        </h1>
-
-        {/* Lifecycle Ring */}
-        <div
-          className="my-4"
+          className="hidden shrink-0 items-center justify-center md:order-1 md:flex md:w-1/2"
           style={{
             opacity: loaded ? 1 : 0,
             transform: loaded ? "scale(1)" : "scale(0.8)",
             transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s",
           }}
         >
-          <LifecycleRing activeStage={activeStage} progress={progress} />
+          <LifecycleRing
+            activeStage={activeStage}
+            progress={progress}
+            ltvValue={ltvValue}
+          />
         </div>
 
-        {/* Metric Chips */}
-        <div
-          className="flex flex-wrap justify-center gap-4"
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s",
-          }}
-        >
-          {METRICS.map((m, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-2.5 rounded-xl border border-border/40 bg-white/60 px-5 py-2.5 backdrop-blur-sm"
+        {/* Content — right on desktop, above on mobile */}
+        <div className="flex flex-col items-center gap-6 text-center md:order-2 md:w-1/2 md:items-start md:text-left">
+          {/* Tagline */}
+          <div
+            style={{
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? "translateY(0)" : "translateY(20px)",
+              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
+            }}
+          >
+            <span className="inline-block rounded-full border border-border px-4 py-1.5 font-mono text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+              CRM & Lifecycle Marketing
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1
+            className="text-4xl font-bold leading-[1.08] tracking-tight md:text-[56px]"
+            style={{
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? "translateY(0)" : "translateY(30px)",
+              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
+            }}
+          >
+            Build Lifecycle Systems
+            <br />
+            That{" "}
+            <span
+              style={{
+                color: STAGES[activeStage].color,
+                transition: "color 0.6s ease",
+              }}
             >
+              {STAGES[activeStage].label}
+            </span>
+          </h1>
+
+          {/* Dynamic Metric Chips */}
+          <div
+            className="flex flex-wrap justify-center gap-3 md:justify-start"
+            style={{
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? "translateY(0)" : "translateY(20px)",
+              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s",
+            }}
+          >
+            {/* Stage metric chip with crossfade */}
+            <div className="relative overflow-hidden rounded-xl border border-border/40 bg-white/60 px-5 py-2.5 backdrop-blur-sm">
+              <div
+                className="flex items-center gap-2.5"
+                style={{
+                  opacity: transitioning ? 0 : 1,
+                  transform: transitioning
+                    ? "translateY(8px)"
+                    : "translateY(0)",
+                  transition: "opacity 0.25s ease, transform 0.25s ease",
+                }}
+              >
+                <span
+                  className="font-mono text-xl font-bold"
+                  style={{
+                    color: STAGES[activeStage].color,
+                    transition: "color 0.6s ease",
+                  }}
+                >
+                  {metricDisplay}
+                </span>
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {currentMetric.label}
+                </span>
+              </div>
+            </div>
+
+            {/* LTV chip */}
+            <div className="flex items-center gap-2.5 rounded-xl border border-border/40 bg-white/60 px-5 py-2.5 backdrop-blur-sm">
               <span
                 className="font-mono text-xl font-bold"
                 style={{
@@ -407,44 +531,45 @@ export function Hero() {
                   transition: "color 0.6s ease",
                 }}
               >
-                {m.value}
+                ${ltvValue}
               </span>
               <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {m.label}
+                LTV
               </span>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* CTAs */}
-        <div
-          className="mt-2 flex gap-3"
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s",
-          }}
-        >
-          <a
-            href="https://calendly.com/saleh-journeylauncher/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg px-7 py-3 text-sm font-semibold text-white transition-all hover:opacity-90"
+          {/* CTAs */}
+          <div
+            className="mt-2 flex gap-3"
             style={{
-              backgroundColor: STAGES[activeStage].color,
-              transition: "background-color 0.6s ease, opacity 0.2s ease",
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? "translateY(0)" : "translateY(20px)",
+              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s",
             }}
           >
-            Book a Session ↗
-          </a>
-          <Link
-            href="/flow"
-            className="inline-flex items-center gap-2 rounded-lg border border-border-strong bg-[#0F2A33] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a3d4a]"
-          >
-            Generate Free CRM Flow
-          </Link>
+            <a
+              href="https://calendly.com/saleh-journeylauncher/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg px-7 py-3 text-sm font-semibold text-white transition-all hover:opacity-90"
+              style={{
+                backgroundColor: STAGES[activeStage].color,
+                transition: "background-color 0.6s ease, opacity 0.2s ease",
+              }}
+            >
+              Book a Session ↗
+            </a>
+            <Link
+              href="/flow"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-7 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+            >
+              Generate Free CRM Flow
+            </Link>
+          </div>
         </div>
       </div>
+
     </section>
   );
 }

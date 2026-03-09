@@ -32,7 +32,7 @@ export function Contact() {
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Linkedin size={16} />
                 <a
-                  href="https://www.linkedin.com/in/salehahmadov/"
+                  href="https://www.linkedin.com/company/108653018/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
