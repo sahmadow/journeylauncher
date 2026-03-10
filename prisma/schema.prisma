@@ -21,6 +21,7 @@ model Submission {
   generatedFlow         Json?    @map("generated_flow")
   webhookSummary        Json?    @map("webhook_summary")
   email                 String?
+  flowEmailSentAt       DateTime? @map("flow_email_sent_at")
   isDeleted             Boolean  @default(false) @map("is_deleted")
   createdAt             DateTime @default(now()) @map("created_at")
   updatedAt             DateTime @updatedAt @map("updated_at")
@@ -35,7 +36,7 @@ model EmailCapture {
   email     String
   source    String?  @default("flow_wizard")
   isDeleted Boolean  @default(false) @map("is_deleted")
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt            DateTime @default(now()) @map("created_at")
 
   @@map("email_captures")
   @@index([email])

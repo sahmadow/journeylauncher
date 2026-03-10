@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import {
   upsertFlowContact,
   removeFromList,
+  sendFlowReadyEmail,
   COMPLETED_LIST_ID,
   ABANDONED_LIST_ID,
 } from "@/lib/autosend";
@@ -39,11 +40,14 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Non-blocking: add contact to AutoSend "Completed" list + remove from "Abandoned"
+    // Non-blocking: add to "Completed" list, remove from "Abandoned", send email
     if (body.email) {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.journeylauncher.com";
       const flowSummaryUrl = `${siteUrl}/flow-summary/${submission.id}`;
+      const brandName =
+        body.scraped_data?.title || body.landing_page_url || "Your Brand";
 
+      // Add contact to Completed list
       upsertFlowContact(
         body.email,
         {
@@ -55,7 +59,18 @@ export async function POST(req: NextRequest) {
         [COMPLETED_LIST_ID]
       );
 
+      // Remove from Abandoned list (no-op, handled by automation exit)
       removeFromList(body.email, ABANDONED_LIST_ID);
+
+      // Send "Flow Ready" email immediately + mark as sent
+      sendFlowReadyEmail(body.email, brandName, flowSummaryUrl).then(() => {
+        prisma.submission
+          .update({
+            where: { id: submission.id },
+            data: { flowEmailSentAt: new Date() },
+          })
+          .catch((err) => console.error("[Submission] Failed to mark flow email sent:", err));
+      });
     }
 
     console.log(`[Submission] ${submission.id} — ${body.landing_page_url || body.email || "unknown"}`);
