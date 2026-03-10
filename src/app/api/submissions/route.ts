@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import {
+  upsertFlowContact,
+  removeFromList,
+  COMPLETED_LIST_ID,
+  ABANDONED_LIST_ID,
+} from "@/lib/autosend";
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,6 +38,25 @@ export async function POST(req: NextRequest) {
         email: body.email || null,
       },
     });
+
+    // Non-blocking: add contact to AutoSend "Completed" list + remove from "Abandoned"
+    if (body.email) {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.journeylauncher.com";
+      const flowSummaryUrl = `${siteUrl}/flow-summary/${submission.id}`;
+
+      upsertFlowContact(
+        body.email,
+        {
+          businessType: body.business_desc || "",
+          companyName: body.landing_page_url || "",
+          flowSummaryUrl,
+          source: "flow_wizard",
+        },
+        [COMPLETED_LIST_ID]
+      );
+
+      removeFromList(body.email, ABANDONED_LIST_ID);
+    }
 
     console.log(`[Submission] ${submission.id} — ${body.landing_page_url || body.email || "unknown"}`);
     return NextResponse.json({ id: submission.id, success: true });

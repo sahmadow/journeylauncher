@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { upsertFlowContact, ABANDONED_LIST_ID } from "@/lib/autosend";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,6 +14,9 @@ export async function POST(req: NextRequest) {
     await prisma.emailCapture.create({
       data: { email, source: body.source || "flow_wizard" },
     });
+
+    // Non-blocking: add contact to AutoSend "Abandoned" list
+    upsertFlowContact(email, { source: body.source || "flow_wizard" }, [ABANDONED_LIST_ID]);
 
     console.log(`[EmailCapture] ${email}`);
     return NextResponse.json({ success: true });
