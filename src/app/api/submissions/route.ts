@@ -40,37 +40,33 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Non-blocking: add to "Completed" list, remove from "Abandoned", send email
+    // Send email + sync contact — must await before response (Vercel kills pending promises)
     if (body.email) {
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.journeylauncher.com";
       const flowSummaryUrl = `${siteUrl}/flow-summary/${submission.id}`;
       const brandName =
         body.scraped_data?.title || body.landing_page_url || "Your Brand";
 
-      // Add contact to Completed list
-      upsertFlowContact(
-        body.email,
-        {
-          businessType: body.business_desc || "",
-          companyName: body.landing_page_url || "",
-          flowSummaryUrl,
-          source: "flow_wizard",
-        },
-        [COMPLETED_LIST_ID]
-      );
+      await Promise.all([
+        upsertFlowContact(
+          body.email,
+          {
+            businessType: body.business_desc || "",
+            companyName: body.landing_page_url || "",
+            flowSummaryUrl,
+            source: "flow_wizard",
+          },
+          [COMPLETED_LIST_ID]
+        ),
+        sendFlowReadyEmail(body.email, brandName, flowSummaryUrl),
+      ]);
 
-      // Remove from Abandoned list (no-op, handled by automation exit)
       removeFromList(body.email, ABANDONED_LIST_ID);
 
-      // Send "Flow Ready" email immediately + mark as sent
-      sendFlowReadyEmail(body.email, brandName, flowSummaryUrl).then(() => {
-        prisma.submission
-          .update({
-            where: { id: submission.id },
-            data: { flowEmailSentAt: new Date() },
-          })
-          .catch((err) => console.error("[Submission] Failed to mark flow email sent:", err));
-      });
+      // Mark email as sent (non-critical, ok to not await)
+      prisma.submission
+        .update({ where: { id: submission.id }, data: { flowEmailSentAt: new Date() } })
+        .catch((err) => console.error("[Submission] Failed to mark flow email sent:", err));
     }
 
     console.log(`[Submission] ${submission.id} — ${body.landing_page_url || body.email || "unknown"}`);

@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
       data: { email, source: body.source || "flow_wizard" },
     });
 
-    // Non-blocking: add contact to AutoSend "Abandoned" list
-    upsertFlowContact(email, { source: body.source || "flow_wizard" }, [ABANDONED_LIST_ID]);
+    // Must await — Vercel kills pending promises after response
+    await upsertFlowContact(email, { source: body.source || "flow_wizard" }, [ABANDONED_LIST_ID]);
 
     console.log(`[EmailCapture] ${email}`);
     return NextResponse.json({ success: true });
