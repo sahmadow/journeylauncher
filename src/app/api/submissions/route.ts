@@ -47,6 +47,19 @@ export async function POST(req: NextRequest) {
       const brandName =
         body.scraped_data?.title || body.landing_page_url || "Your Brand";
 
+      // Dedup: skip email if we already sent one to this address in the last hour
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+      const recentSend = await prisma.submission.findFirst({
+        where: {
+          email: body.email,
+          flowEmailSentAt: { gte: oneHourAgo },
+          isDeleted: false,
+        },
+        select: { id: true },
+      });
+
+      const shouldSendEmail = !recentSend;
+
       await Promise.all([
         upsertFlowContact(
           body.email,
@@ -58,15 +71,20 @@ export async function POST(req: NextRequest) {
           },
           [COMPLETED_LIST_ID]
         ),
-        sendFlowReadyEmail(body.email, brandName, flowSummaryUrl),
+        shouldSendEmail
+          ? sendFlowReadyEmail(body.email, brandName, flowSummaryUrl)
+          : Promise.resolve(),
       ]);
 
       removeFromList(body.email, ABANDONED_LIST_ID);
 
-      // Mark email as sent (non-critical, ok to not await)
-      prisma.submission
-        .update({ where: { id: submission.id }, data: { flowEmailSentAt: new Date() } })
-        .catch((err) => console.error("[Submission] Failed to mark flow email sent:", err));
+      if (shouldSendEmail) {
+        prisma.submission
+          .update({ where: { id: submission.id }, data: { flowEmailSentAt: new Date() } })
+          .catch((err) => console.error("[Submission] Failed to mark flow email sent:", err));
+      } else {
+        console.log(`[AutoSend] Skipped duplicate email for ${body.email} (sent <1hr ago)`);
+      }
     }
 
     console.log(`[Submission] ${submission.id} — ${body.landing_page_url || body.email || "unknown"}`);
