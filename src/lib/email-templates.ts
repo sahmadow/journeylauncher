@@ -127,8 +127,6 @@ Journey Launcher | ${BRAND.url}`;
 }
 
 // ── Email 2: Follow-up (7 days after completion) ──────────────
-// Used as HTML reference for AutoSend dashboard automation template.
-// Paste the output of flowFollowUpEmail().html into the AutoSend template editor.
 
 export function flowFollowUpEmail(vars: {
   brandName: string;
@@ -179,7 +177,6 @@ Journey Launcher | ${BRAND.url}`;
 }
 
 // ── Email 3: Abandoned flow (1hr after email capture) ─────────
-// Used as HTML reference for AutoSend dashboard automation template.
 
 export function flowAbandonedEmail(vars: {
   email: string;
