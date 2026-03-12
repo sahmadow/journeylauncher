@@ -6,9 +6,10 @@ import type { ScrapedData } from "@/types";
 const CRON_SECRET = process.env.CRON_SECRET || "";
 
 /**
- * Vercel Pro cron (hourly) — sends delayed emails:
- *   1. Abandoned flow emails: 1hr after email capture, if no submission exists
- *   2. Follow-up emails: 7 days after submission
+ * Daily cron (9am UTC) — sends delayed emails:
+ *   1. Abandoned flow emails: next day after capture, if no submission exists
+ *      and no email sent to this address in the last 24hr
+ *   2. Follow-up emails: 7 days after submission (once per submission)
  */
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
@@ -18,26 +19,45 @@ export async function GET(req: NextRequest) {
 
   const results = { abandoned: 0, followUp: 0, errors: 0 };
 
-  // ── 1. Abandoned flow emails (1hr after capture, no submission) ──
+  // ── 1. Abandoned flow emails (next day after capture, no submission) ──
   try {
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
     const pendingAbandoned = await prisma.emailCapture.findMany({
       where: {
         abandonedEmailSentAt: null,
         isDeleted: false,
-        createdAt: { lt: oneHourAgo },
+        createdAt: { lt: oneDayAgo },
       },
       take: 50,
     });
 
     for (const capture of pendingAbandoned) {
+      // Skip if user completed the wizard
       const hasSubmission = await prisma.submission.findFirst({
         where: { email: capture.email, isDeleted: false },
         select: { id: true },
       });
 
       if (hasSubmission) {
+        await prisma.emailCapture.update({
+          where: { id: capture.id },
+          data: { abandonedEmailSentAt: new Date() },
+        });
+        continue;
+      }
+
+      // Skip if this email already received any email in the last 24hr
+      // (e.g. they abandoned multiple times)
+      const recentlySent = await prisma.emailCapture.findFirst({
+        where: {
+          email: capture.email,
+          abandonedEmailSentAt: { gte: oneDayAgo },
+        },
+        select: { id: true },
+      });
+
+      if (recentlySent) {
         await prisma.emailCapture.update({
           where: { id: capture.id },
           data: { abandonedEmailSentAt: new Date() },
