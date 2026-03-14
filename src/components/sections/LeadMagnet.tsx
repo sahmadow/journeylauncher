@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export function LeadMagnet() {
   return (
@@ -30,6 +31,7 @@ export function LeadMagnet() {
 
           <Link
             href="/flow"
+            onClick={() => trackEvent("click_generate_flow", { location: "lead_magnet" })}
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-neutral-500 px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-600"
           >
             Generate My CRM Flow

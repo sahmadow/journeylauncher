@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 
 const FOOTER_COLS = [
   {
@@ -54,6 +57,10 @@ export function Footer() {
                       href={link.href}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                       {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      onClick={() => {
+                        if (link.label === "Blog") trackEvent("click_blog", { location: "footer" });
+                        if (link.label === "Free CRM Flow Generator") trackEvent("click_generate_flow", { location: "footer" });
+                      }}
                     >
                       {link.label}
                     </a>

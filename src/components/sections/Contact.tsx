@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Mail, Linkedin } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export function Contact() {
   return (
@@ -55,6 +56,7 @@ export function Contact() {
               href="https://calendly.com/saleh-journeylauncher/30min"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent("click_book_session", { location: "contact" })}
               className="flex items-center justify-center gap-2 rounded-lg bg-foreground px-6 py-3.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
             >
               Book a Free Session
@@ -62,6 +64,7 @@ export function Contact() {
             </a>
             <Link
               href="/flow"
+              onClick={() => trackEvent("click_generate_flow", { location: "contact" })}
               className="flex items-center justify-center gap-2 rounded-lg bg-[#0F2A33] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a3d4a]"
             >
               Generate Free CRM Flow

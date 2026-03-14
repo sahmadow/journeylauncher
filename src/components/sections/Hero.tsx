@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAnimationFrame } from "@/hooks/useAnimationFrame";
+import { trackEvent } from "@/lib/analytics";
 import {
   TrendingUp,
   Zap,
@@ -552,6 +553,7 @@ export function Hero() {
               href="https://calendly.com/saleh-journeylauncher/30min"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent("click_book_session", { location: "hero" })}
               className="inline-flex items-center gap-2 rounded-lg px-7 py-3 text-sm font-semibold text-white transition-all hover:opacity-90"
               style={{
                 backgroundColor: STAGES[activeStage].color,
@@ -562,6 +564,7 @@ export function Hero() {
             </a>
             <Link
               href="/flow"
+              onClick={() => trackEvent("click_generate_flow", { location: "hero" })}
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-7 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
             >
               Generate Free CRM Flow

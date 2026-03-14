@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const MENU_LINKS = [
   { label: "How It Works", href: "/#how-it-works" },
@@ -28,6 +29,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/blog"
+            onClick={() => trackEvent("click_blog", { location: "navbar" })}
             className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
           >
             Blog
@@ -36,12 +38,14 @@ export function Navbar() {
             href="https://calendly.com/saleh-journeylauncher/30min"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent("click_book_session", { location: "navbar" })}
             className="hidden rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary sm:block"
           >
             Book a Session
           </a>
           <Link
             href="/flow"
+            onClick={() => trackEvent("click_generate_flow", { location: "navbar" })}
             className="hidden rounded-lg border border-border bg-white px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary sm:block"
           >
             Generate Free CRM Flow
@@ -74,7 +78,7 @@ export function Navbar() {
             <div className="flex flex-col gap-3 border-t border-border pt-4 sm:hidden">
               <Link
                 href="/blog"
-                onClick={() => setOpen(false)}
+                onClick={() => { trackEvent("click_blog", { location: "navbar" }); setOpen(false); }}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 Blog
@@ -83,13 +87,14 @@ export function Navbar() {
                 href="https://calendly.com/saleh-journeylauncher/30min"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("click_book_session", { location: "navbar" })}
                 className="rounded-lg border border-border px-4 py-2.5 text-center text-sm font-medium"
               >
                 Book a Session
               </a>
               <Link
                 href="/flow"
-                onClick={() => setOpen(false)}
+                onClick={() => { trackEvent("click_generate_flow", { location: "navbar" }); setOpen(false); }}
                 className="rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-medium text-foreground"
               >
                 Generate Free CRM Flow
