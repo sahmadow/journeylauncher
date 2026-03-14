@@ -79,6 +79,46 @@ export interface GeneratedFlow {
   stages: FlowStage[];
 }
 
+// --- EmailGen Engine types ---
+
+export interface BrandConfig {
+  logo_url: string;
+  primary_color: string;
+  secondary_color?: string;
+  accent_color?: string;
+  font_family: string;
+  header_style: "logo-only" | "logo-tagline" | "logo-nav";
+  footer_content: string;
+  social_links?: {
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+    facebook?: string;
+  };
+  cta_style: "rounded" | "pill" | "square";
+  template_style: "minimal" | "editorial" | "promotional";
+  hero_image_url?: string;
+  tone_override?: string;
+  sender_name: string;
+  sender_address?: string;
+}
+
+export interface GeneratedEmail {
+  node_id: string;
+  stage_name: string;
+  subject: string;
+  html: string;
+  status: "pending" | "generating" | "ready" | "error";
+  error_message?: string;
+}
+
+export interface EmailGenState {
+  brand_config: BrandConfig | null;
+  generated_emails: GeneratedEmail[];
+  generation_status: "idle" | "generating" | "complete" | "error";
+  panel_open: boolean;
+}
+
 export interface WizardState {
   currentScreen: number;
   landingPageUrl: string;
@@ -97,6 +137,7 @@ export interface WizardState {
   isLoading: boolean;
   error: string | null;
   email: string;
+  emailGenState?: EmailGenState;
 }
 
 export const INITIAL_WIZARD_STATE: WizardState = {

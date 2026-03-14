@@ -1,8 +1,8 @@
 # PRD: EmailGen Engine
 
 **Feature:** AI-Powered Email Generation Engine
-**Status:** Draft
-**Date:** 2026-03-12
+**Status:** Draft → Revised
+**Date:** 2026-03-14 (revised from 2026-03-12)
 **Author:** Auto-generated
 
 ---
@@ -20,11 +20,13 @@ JourneyLauncher currently generates lifecycle **flow structures** (triggers, wai
 Build an **emailGen engine** that:
 
 1. Gathers brand guidelines, visual assets, and content inputs via the existing canvas experience
-2. Generates fully designed, responsive HTML emails for every email node in the flow
-3. Renders inline previews within the canvas
-4. Includes all generated email HTML files in the "Download Now" export
+2. Generates **one fully designed, responsive HTML email per requested lifecycle stage** (the most representative email node — typically the first/key email in each stage)
+3. Renders inline previews within the canvas and flow summary page
+4. Includes generated email HTML files in the "Download Now" export
 
-**Success metric:** Users can download a complete set of production-ready HTML email templates that match their brand, ready to import into any ESP.
+**Success metric:** Users see a branded email preview for each lifecycle stage and can download production-ready HTML templates matching their brand, ready to import into any ESP.
+
+**Scoping decision:** One email per stage (max 4) keeps generation fast (<15s), reduces AI cost, and gives users the highest-impact preview. Users needing all emails designed can regenerate individual nodes in Phase 2.
 
 ---
 
@@ -45,7 +47,7 @@ Build an **emailGen engine** that:
 
 - Brand guidelines input panel (within canvas screen)
 - Visual asset collection (logo, hero images, social icons)
-- AI-powered HTML email generation for all email nodes
+- AI-powered HTML email generation — **one email per requested stage** (most important node)
 - Responsive email HTML output (compatible with major ESPs)
 - Inline email previews in the canvas (replacing current plain previews)
 - Bundled email HTML files in "Download Now" export
@@ -99,9 +101,12 @@ After the existing flow is generated (Screen 9 — Canvas), a new **side panel**
 │     ───────►       + existing flow email nodes      │
 │                    + scrapedData + analysis          │
 │                                                     │
+│  1b. SELECT        Pick most important email node   │
+│      ───────►      per requested stage (first email │
+│                    node with subject + body_html)    │
+│                                                     │
 │  2. COMPILE        Per-email context:                │
 │     ───────►       - stage (Early Eng, Retention…)  │
-│                    - position in sequence            │
 │                    - node copy (subject, body, CTA)  │
 │                    - brand guidelines object         │
 │                    - business type + tone            │
@@ -182,25 +187,16 @@ The existing `handleDownload()` in `ScreenSummary` will be extended:
 lifecycle-flow-export/
 ├── flow-summary.html                    # Existing summary report (enhanced)
 ├── emails/
-│   ├── 01-early-engagement/
-│   │   ├── welcome-email.html           # Full responsive HTML email
-│   │   ├── onboarding-step-1.html
-│   │   └── onboarding-follow-up.html
-│   ├── 02-engagement/
-│   │   ├── feature-discovery.html
-│   │   └── usage-milestone.html
-│   ├── 03-monetisation/
-│   │   ├── upgrade-nudge.html
-│   │   └── pricing-reminder.html
-│   └── 04-retention/
-│       ├── re-engagement.html
-│       └── win-back.html
+│   ├── 01-early-engagement.html         # One branded email per requested stage
+│   ├── 02-engagement.html
+│   ├── 03-monetisation.html
+│   └── 04-retention.html
 ├── assets/
 │   └── brand-guidelines.json            # Exported brand config for reference
 └── README.txt                           # Quick-start guide for importing into ESPs
 ```
 
-**File naming convention:** `{##}-{stage-slug}/{email-subject-slugified}.html`
+**File naming convention:** `{##}-{stage-slug}.html` (one file per requested stage)
 
 **ZIP generation:** Client-side using JSZip (no server roundtrip needed for packaging).
 
@@ -216,10 +212,13 @@ lifecycle-flow-export/
 // Request
 {
   brand_config: BrandConfig;        // All brand panel inputs
-  email_nodes: EmailNode[];         // Email nodes from generated flow
+  stages: {                         // One entry per requested stage
+    stage_name: string;
+    stage_description: string;
+    email_node: EmailNode;          // Most important email node from this stage
+  }[];
   scraped_data: ScrapedData;        // Existing scraped brand data
   analysis: Analysis;               // Business type, tone, USP
-  stage_context: StageContext[];     // Stage name + description per email
 }
 
 // Response
@@ -231,10 +230,10 @@ lifecycle-flow-export/
 **Rate limit:** 3 requests/min (generation is expensive)
 
 **AI prompt strategy:**
-- Batch emails by stage to reduce API calls
+- Single Gemini call generates all stage emails (max 4) in one batch
 - System prompt: email HTML specialist with ESP compatibility expertise
-- Per-email user prompt: brand config + copy + stage context
-- Output: raw HTML string per email (no markdown wrapping)
+- User prompt: brand config + one email node per stage + stage context
+- Output: JSON array of `{ stage_name, html }` objects (no markdown wrapping)
 
 ### 6.2 New Types
 
@@ -331,8 +330,8 @@ Screen 9 (Canvas) — existing flow loads
             │ "Generate All Emails" click
             ▼
    ┌─────────────────┐
-   │ Generation       │  ← Progress bar: "Generating 1 of 12..."
-   │ in progress      │     Email nodes update with status badges
+   │ Generation       │  ← Progress: "Generating emails for 4 stages..."
+   │ in progress      │     One email per stage, single API call
    └────────┬────────┘
             │ complete
             ▼
@@ -355,13 +354,12 @@ Screen 9 (Canvas) — existing flow loads
 
 | Scenario | Handling |
 |----------|---------|
-| AI generation fails for 1 email | Mark that email as `error`, show retry button on node; other emails unaffected |
-| AI generation fails for all | Show error toast with "Retry All" option; fall back to current plain previews |
+| AI generation fails for 1 stage | Mark that stage email as `error`, show retry button; other stages unaffected |
+| AI generation fails for all | Show error toast with "Retry" option; fall back to current plain previews |
 | No logo URL available | Use text-only header with brand name styled in primary color |
 | No colors extracted | Default to neutral palette (#1a1a1a primary, #6366f1 accent) |
 | User closes panel mid-generation | Generation continues in background; results available when panel reopens |
-| Very large flow (20+ emails) | Batch generation in groups of 4; show overall progress; implement request queuing |
-| Session storage full | Compress email HTML before storing; if still full, store only references and re-fetch |
+| Session storage full | Max 4 emails (~400KB total) — unlikely to hit limits; compress if needed |
 | Invalid HTML returned by AI | Run through DOMPurify sanitization; if structure is broken, retry once with stricter prompt |
 
 ---
@@ -437,7 +435,7 @@ Screen 9 (Canvas) — existing flow loads
 | # | Question | Impact | Suggested Resolution |
 |---|----------|--------|---------------------|
 | 1 | Should we support custom HTML template uploads as a starting point? | Scope | Defer to v2 — start with AI-only generation |
-| 2 | Max number of emails to generate in one batch? | Cost/UX | Cap at 20 emails per generation run |
+| 2 | Max number of emails to generate in one batch? | Cost/UX | **Resolved:** One per requested stage (max 4), single Gemini call |
 | 3 | Should generated emails be saved to the database? | Storage | Store in Submission JSON field; consider separate table if needed for querying |
 | 4 | Do we need email rendering previews via a service like Litmus? | Quality | Defer — iframe preview sufficient for v1 |
 | 5 | Should the Email Studio panel be accessible before the flow is generated? | UX | No — require flow generation first so email nodes exist to populate |
@@ -449,7 +447,7 @@ Screen 9 (Canvas) — existing flow loads
 | Metric | Target |
 |--------|--------|
 | Email generation completion rate | > 90% of started generations complete without error |
-| Average generation time (full flow) | < 30 seconds for 10 emails |
+| Average generation time (full flow) | < 15 seconds for up to 4 stage emails (single Gemini call) |
 | Download adoption | > 60% of users who generate emails also download the ZIP |
 | HTML email ESP compatibility | Renders correctly in Gmail, Outlook, Apple Mail (manual QA) |
 | User satisfaction | Positive qualitative feedback in first 50 user sessions |

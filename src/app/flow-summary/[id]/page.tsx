@@ -11,7 +11,9 @@ import {
   LifecycleStage,
   DataAvailability,
   ScoreValue,
+  GeneratedEmail,
 } from "@/types";
+import { StageEmailPreview } from "@/components/flow-summary/StageEmailPreview";
 import type { Metadata } from "next";
 
 // Revalidate every hour — not real-time, but fresh enough
@@ -99,7 +101,7 @@ function NodeCard({ node }: { node: FlowNode }) {
   );
 }
 
-function StageSection({ stage }: { stage: FlowStage }) {
+function StageSection({ stage, generatedEmail }: { stage: FlowStage; generatedEmail?: GeneratedEmail }) {
   const emailCount = stage.nodes.filter((n) => n.type === "email").length;
 
   return (
@@ -107,6 +109,11 @@ function StageSection({ stage }: { stage: FlowStage }) {
       <summary className="cursor-pointer text-lg font-semibold text-slate-900">
         {stage.stage}
         <span className="ml-2 text-sm font-normal text-slate-400">({emailCount} emails)</span>
+        {generatedEmail && (
+          <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">
+            Preview
+          </span>
+        )}
       </summary>
       {stage.description && <p className="mt-1 text-sm text-slate-500">{stage.description}</p>}
       <div className="mt-3 space-y-0">
@@ -114,6 +121,13 @@ function StageSection({ stage }: { stage: FlowStage }) {
           <NodeCard key={node.id} node={node} />
         ))}
       </div>
+      {generatedEmail?.html && (
+        <StageEmailPreview
+          html={generatedEmail.html}
+          subject={generatedEmail.subject}
+          stageName={stage.stage}
+        />
+      )}
     </details>
   );
 }
@@ -153,6 +167,7 @@ export default async function FlowSummaryPage({ params }: PageProps) {
 
   const flow = submission.generatedFlow as GeneratedFlow | null;
   const scraped = submission.scrapedData as ScrapedData | null;
+  const generatedEmails = (submission.generatedEmails as GeneratedEmail[] | null) || [];
   const brandName = scraped?.title || "Your Brand";
   const accentColor = scraped?.colors?.[0] || "#1e293b";
   const logoUrl = scraped?.logo_url || null;
@@ -289,9 +304,18 @@ export default async function FlowSummaryPage({ params }: PageProps) {
           <section className="mb-6 rounded-xl border border-slate-200 bg-white p-6">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">Lifecycle Flow</h2>
             <div className="space-y-6">
-              {flow.stages.map((stage) => (
-                <StageSection key={stage.stage} stage={stage} />
-              ))}
+              {flow.stages.map((stage) => {
+                const stageEmail = generatedEmails.find(
+                  (e) => e.stage_name === stage.stage && e.status === "ready"
+                );
+                return (
+                  <StageSection
+                    key={stage.stage}
+                    stage={stage}
+                    generatedEmail={stageEmail}
+                  />
+                );
+              })}
             </div>
           </section>
         )}
