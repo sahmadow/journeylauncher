@@ -8,19 +8,13 @@ const TABS = [
     label: "Research",
     title: "Competitor Intelligence & Funnel Audit",
     description:
-      "We scrape competitor landing pages, pricing, and messaging in real-time using Playwright and Perplexity. You get a clear picture of gaps and opportunities before a single word of copy is written.",
+      "We analyse competitor positioning, pricing, and messaging to find the gaps you can own. You get a clear picture of opportunities before a single word of copy is written.",
   },
   {
     label: "Foundation",
     title: "Positioning & Brand Voice",
     description:
-      "Using expert frameworks encoded as Claude Skills — Schwartz awareness levels, Ogilvy Big Idea, JTBD — we define your unique positioning, tone, and messaging hierarchy.",
-  },
-  {
-    label: "Landing Pages",
-    title: "Conversion-Optimised Pages",
-    description:
-      "We build landing pages that sell — no generic AI-generated filler. Every headline, CTA, and section is backed by research and designed for your specific audience.",
+      "We define your unique positioning, tone, and messaging hierarchy using proven frameworks — awareness levels, Big Idea methodology, and Jobs-to-be-Done.",
   },
   {
     label: "Email Flows",
@@ -29,10 +23,10 @@ const TABS = [
       "From onboarding drips to re-engagement campaigns, we design full email sequences personalised to your business type, lifecycle stage, and data sources.",
   },
   {
-    label: "Ads",
-    title: "Video & Static Ad Variants",
+    label: "Reporting",
+    title: "Measurement & Experimentation",
     description:
-      "Programmatic video ads via Remotion and static variants at scale. Test headlines, hooks, and visuals without waiting weeks for creative agencies.",
+      "Every initiative ships with a local A/B test and a global control group — so you measure both short-term lifts and long-term impact.",
   },
 ];
 

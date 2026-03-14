@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { GeneratedFlow, ScrapedData, Analysis } from "@/types";
-import { LifecycleCanvas } from "@/components/canvas/LifecycleCanvas";
+import { GeneratedFlow, ScrapedData, Analysis, GeneratedEmail, EmailGenState, BrandConfig } from "@/types";
+import { LifecycleCanvas, StageGenerateRequest } from "@/components/canvas/LifecycleCanvas";
 import { useEnterKey } from "@/hooks/useEnterKey";
 
 interface Props {
@@ -13,6 +13,23 @@ interface Props {
   scrapedData: ScrapedData | null;
   analysis: Analysis | null;
   onContinue: () => void;
+  emailGenState?: EmailGenState;
+  onEmailGenStateChange?: (state: EmailGenState) => void;
+}
+
+function buildBrandConfig(scrapedData: ScrapedData | null, analysis: Analysis | null): BrandConfig {
+  return {
+    logo_url: scrapedData?.logo_url || "",
+    primary_color: scrapedData?.colors?.[0] || "#1e293b",
+    secondary_color: scrapedData?.colors?.[1] || "",
+    font_family: "Inter, sans-serif",
+    header_style: "logo-only",
+    footer_content: `© ${new Date().getFullYear()} ${scrapedData?.title || "Your Company"}. All rights reserved.`,
+    cta_style: "rounded",
+    template_style: "minimal",
+    tone_override: analysis?.tone || "professional",
+    sender_name: scrapedData?.title || "",
+  };
 }
 
 export function ScreenCanvas({
@@ -21,10 +38,64 @@ export function ScreenCanvas({
   scrapedData,
   analysis,
   onContinue,
+  emailGenState,
+  onEmailGenStateChange,
 }: Props) {
+  const [generatingStage, setGeneratingStage] = useState<string | null>(null);
   const canContinue = !isLoading && !!flow;
   const handleEnter = useCallback(() => { if (canContinue) onContinue(); }, [canContinue, onContinue]);
   useEnterKey(handleEnter, canContinue);
+
+  const generatedEmails = emailGenState?.generated_emails || [];
+
+  const handleGenerateForStage = useCallback(async (req: StageGenerateRequest) => {
+    if (!flow) return;
+    const { stageName, stageDescription, keyEmailNode } = req;
+    setGeneratingStage(stageName);
+
+    const brandConfig = emailGenState?.brand_config || buildBrandConfig(scrapedData, analysis);
+
+    try {
+      const res = await fetch("/api/generate-emails", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brand_config: brandConfig,
+          stages: [{
+            stage_name: stageName,
+            stage_description: stageDescription,
+            email_node: {
+              id: keyEmailNode.id,
+              subject: keyEmailNode.subject,
+              preview_text: keyEmailNode.preview_text,
+              body_html: keyEmailNode.body_html,
+              cta_text: keyEmailNode.cta_text,
+              cta_url: keyEmailNode.cta_url,
+            },
+          }],
+          analysis: analysis || {},
+        }),
+      });
+
+      if (res.ok) {
+        const { emails } = await res.json();
+        const existing = generatedEmails.filter((e) => e.stage_name !== stageName);
+        const updated = [...existing, ...(emails as GeneratedEmail[])];
+
+        onEmailGenStateChange?.({
+          brand_config: brandConfig,
+          generated_emails: updated,
+          generation_status: "complete",
+          panel_open: false,
+        });
+      }
+    } catch (err) {
+      console.error("Email generation failed:", err);
+    } finally {
+      setGeneratingStage(null);
+    }
+  }, [flow, emailGenState, scrapedData, analysis, generatedEmails, onEmailGenStateChange]);
+
   if (isLoading || !flow) {
     return (
       <motion.div
@@ -64,6 +135,9 @@ export function ScreenCanvas({
         brandColors={scrapedData?.colors || []}
         logoUrl={scrapedData?.logo_url || ""}
         brandName={scrapedData?.title || ""}
+        generatedEmails={generatedEmails}
+        onGenerateEmail={handleGenerateForStage}
+        generatingStage={generatingStage || undefined}
       />
 
       <div className="flex flex-col items-center gap-2 pb-8">

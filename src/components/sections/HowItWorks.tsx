@@ -9,21 +9,21 @@ const STEPS = [
     icon: Search,
     title: "Research & Audit",
     description:
-      "We scrape your competitors, analyse your funnel, and map your customer lifecycle gaps using AI-powered tools.",
+      "We walk through your customer journey, mapping the milestones and intent-based signals that drive each stage forward.",
   },
   {
     num: "02",
     icon: Layers,
     title: "Strategy & Architecture",
     description:
-      "Using proven frameworks (Schwartz awareness levels, Ogilvy Big Idea), we define your positioning and lifecycle stages.",
+      "Using proven lifecycle frameworks, we define each stage, its objectives, and the triggers that move customers forward.",
   },
   {
     num: "03",
     icon: Zap,
     title: "Build & Deploy",
     description:
-      "We build the email sequences, CRM flows, landing pages, and ad variants — then deploy and measure.",
+      "We build real-time automations that reach customers at the right moment, across every channel.",
   },
 ];
 

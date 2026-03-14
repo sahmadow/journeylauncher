@@ -20,6 +20,9 @@ model Submission {
   scrapedData           Json?    @map("scraped_data")
   generatedFlow         Json?    @map("generated_flow")
   webhookSummary        Json?    @map("webhook_summary")
+  analysis              Json?
+  emailGenConfig        Json?    @map("email_gen_config")
+  generatedEmails       Json?    @map("generated_emails")
   email                 String?
   flowEmailSentAt       DateTime? @map("flow_email_sent_at")
   followUpEmailSentAt   DateTime? @map("follow_up_email_sent_at")

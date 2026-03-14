@@ -36,6 +36,9 @@ export async function POST(req: NextRequest) {
         scrapedData: body.scraped_data || null,
         generatedFlow: body.generated_flow || null,
         webhookSummary: body.webhook_summary || null,
+        analysis: body.analysis || null,
+        emailGenConfig: body.email_gen_config || null,
+        generatedEmails: body.generated_emails || null,
         email: body.email || null,
       },
     });
