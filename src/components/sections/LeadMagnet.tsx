@@ -23,14 +23,14 @@ export function LeadMagnet() {
             Generate Free Personalised CRM Flows
           </h2>
           <p className="mx-auto mt-4 max-w-[520px] text-sm leading-relaxed text-muted-foreground md:text-base">
-            Paste your website URL and we&apos;ll generate a complete lifecycle
-            automation flow tailored to your business — email sequences,
-            triggers, and recommendations included.
+            Paste your website URL and get a draft lifecycle automation
+            flow in minutes — stages, email triggers, and recommendations
+            tailored to your business.
           </p>
 
           <Link
             href="/flow"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#0F2A33] px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a3d4a]"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-neutral-500 px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-neutral-600"
           >
             Generate My CRM Flow
             <ArrowRight size={16} />

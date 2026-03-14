@@ -4,16 +4,15 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const GOOD_FIT = [
+  "Need rapid experimentation and scale",
+  "Want intelligence-driven automations, set up fast",
   "Founders who want a professional lifecycle system without hiring an agency",
-  "Marketing leads tired of stitching tools together with no cohesion",
-  "Agencies wanting a repeatable, data-driven lifecycle process for clients",
-  "Technical founders who understand systems thinking and want it applied to marketing",
 ];
 
 const NOT_FIT = [
-  "Looking for a quick logo or brand refresh",
-  "Need someone to manage your social media day-to-day",
+  "Looking for traditional UI-based email tools that don't scale",
   "Want a one-off campaign with no measurement",
+  "Want to run manual, one-size-fits-all programs",
 ];
 
 export function WhoItsFor() {
