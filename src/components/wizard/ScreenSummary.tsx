@@ -350,21 +350,21 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
   useEffect(() => {
     if (confettiFired.current) return;
     confettiFired.current = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     import("canvas-confetti").then(({ default: confetti }) => {
-      // Big initial burst from both sides
       confetti({ particleCount: 80, spread: 70, angle: 60, origin: { x: 0, y: 0.6 }, colors: ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b"] });
       confetti({ particleCount: 80, spread: 70, angle: 120, origin: { x: 1, y: 0.6 }, colors: ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b"] });
-
-      // Staggered follow-up bursts
-      setTimeout(() => {
+      timers.push(setTimeout(() => {
         confetti({ particleCount: 40, spread: 90, origin: { x: 0.3, y: 0.5 } });
         confetti({ particleCount: 40, spread: 90, origin: { x: 0.7, y: 0.5 } });
-      }, 300);
-      setTimeout(() => {
+      }, 300));
+      timers.push(setTimeout(() => {
         confetti({ particleCount: 30, spread: 120, origin: { x: 0.5, y: 0.4 }, gravity: 0.8 });
-      }, 600);
+      }, 600));
     });
+
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
@@ -426,9 +426,7 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
           </p>
           <div className="space-y-2">
             {state.generatedFlow.stages.map((stage, i) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const raw = stage as any;
-              const name = stage.stage || raw.name || raw.stage_name || `Stage ${i + 1}`;
+              const name = stage.stage || stage.name || stage.stage_name || `Stage ${i + 1}`;
               return (
                 <div key={name} className="flex items-center justify-between">
                   <span className="text-slate-700">{name}</span>

@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { GeneratedFlow, ScrapedData, EmailGenState } from "@/types";
+import { GeneratedFlow, ScrapedData } from "@/types";
 import { LifecycleCanvas } from "@/components/canvas/LifecycleCanvas";
 import { useEnterKey } from "@/hooks/useEnterKey";
 
@@ -11,10 +11,7 @@ interface Props {
   flow: GeneratedFlow | null;
   isLoading: boolean;
   scrapedData: ScrapedData | null;
-  analysis: unknown;
   onContinue: () => void;
-  emailGenState?: EmailGenState;
-  onEmailGenStateChange?: (state: EmailGenState) => void;
 }
 
 export function ScreenCanvas({
@@ -64,8 +61,6 @@ export function ScreenCanvas({
       <LifecycleCanvas
         flow={flow}
         brandColors={scrapedData?.colors || []}
-        logoUrl={scrapedData?.logo_url || ""}
-        brandName={scrapedData?.title || ""}
       />
 
       <div className="flex flex-col items-center gap-2 pb-8">

@@ -190,7 +190,7 @@ export default function FlowPage() {
       case 6: return <ScreenWebhookSummary webhookSummary={state.webhookSummary} dataSources={state.dataSources} onContinue={handleWebhookContinue} />;
       case 7: return <ScreenBrandBrief analysis={state.analysis} scrapedData={state.scrapedData} businessTypeOverride={state.businessTypeOverride} onBusinessTypeChange={handleBusinessTypeChange} clmScore={state.clmScore} personalisationScore={state.personalisationScore} dataSources={state.dataSources} dataAvailability={state.dataAvailability} lifecycleGaps={state.lifecycleGaps} onGenerateFlow={handleGenerateFlow} isLoading={state.isLoading} />;
       case 8: return <ScreenEmailCapture onSubmit={handleEmailCapture} isLoading={state.isLoading} />;
-      case 9: return <ScreenCanvas flow={state.generatedFlow} isLoading={state.isLoading} scrapedData={state.scrapedData} analysis={state.analysis} onContinue={() => goTo(10)} emailGenState={state.emailGenState} onEmailGenStateChange={(egs) => update({ emailGenState: egs })} />;
+      case 9: return <ScreenCanvas flow={state.generatedFlow} isLoading={state.isLoading} scrapedData={state.scrapedData} onContinue={() => goTo(10)} />;
       case 10: return <ScreenSummary state={state} onSave={handleSave} isLoading={state.isLoading} />;
       default: return null;
     }

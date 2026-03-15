@@ -71,6 +71,8 @@ export interface FlowNode {
 
 export interface FlowStage {
   stage: string;
+  name?: string;
+  stage_name?: string;
   description: string;
   nodes: FlowNode[];
 }

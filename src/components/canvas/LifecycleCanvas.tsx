@@ -3,17 +3,9 @@
 import { GeneratedFlow } from "@/types";
 import { StageSection } from "./StageSection";
 
-export interface StageGenerateRequest {
-  stageName: string;
-  stageDescription: string;
-  keyEmailNode: GeneratedFlow["stages"][0]["nodes"][0];
-}
-
 interface Props {
   flow: GeneratedFlow;
   brandColors: string[];
-  logoUrl: string;
-  brandName: string;
 }
 
 const STAGE_COLORS: Record<string, string> = {
@@ -29,10 +21,7 @@ export function LifecycleCanvas({ flow, brandColors }: Props) {
   return (
     <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
       {flow.stages.map((stage, i) => {
-        // Normalize stage name — Gemini may return stage, name, or stage_name
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const raw = stage as any;
-        const stageName: string = stage.stage || raw.name || raw.stage_name || `Stage ${i + 1}`;
+        const stageName = stage.stage || stage.name || stage.stage_name || `Stage ${i + 1}`;
 
         return (
           <StageSection
