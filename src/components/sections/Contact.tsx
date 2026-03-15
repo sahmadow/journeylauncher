@@ -70,12 +70,6 @@ export function Contact() {
               Generate Free CRM Flow
               <ArrowRight size={16} />
             </Link>
-            <a
-              href="/deck.html"
-              className="flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3.5 text-sm font-semibold transition-colors hover:bg-secondary"
-            >
-              View the Playbook
-            </a>
           </motion.div>
         </div>
       </div>

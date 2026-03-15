@@ -17,7 +17,6 @@ const FOOTER_COLS = [
     title: "Tools",
     links: [
       { label: "Free CRM Flow Generator", href: "/flow" },
-      { label: "The Playbook", href: "/deck.html" },
     ],
   },
   {
@@ -37,9 +36,10 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
+            <Link href="/" className="flex items-center gap-2.5 text-lg">
               <img src="/logo-new.svg" alt="Journey Launcher" className="h-6 w-6" />
-              JOURNEY LAUNCHER
+              <span className="font-semibold tracking-tight text-foreground">Journey</span>
+              <span className="-ml-2 font-light tracking-tight text-muted-foreground">Launcher</span>
             </Link>
             <p className="mt-3 text-sm text-muted-foreground">
               CRM & Lifecycle Marketing Consultancy. Berlin.

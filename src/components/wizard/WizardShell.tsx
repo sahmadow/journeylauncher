@@ -34,6 +34,7 @@ export function WizardShell({
   const progress = (currentScreen / totalScreens) * 100;
 
   return (
+    <div className="min-h-screen bg-slate-50">
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8">
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -56,6 +57,7 @@ export function WizardShell({
         {SCREEN_LABELS[currentScreen - 1]}
       </p>
       <div className="flex flex-1 items-start justify-center">{children}</div>
+    </div>
     </div>
   );
 }

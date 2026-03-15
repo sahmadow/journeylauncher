@@ -20,9 +20,10 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-border bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1248px] items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg tracking-tight">
+        <Link href="/" className="flex items-center gap-2.5 text-lg">
           <img src="/logo-new.svg" alt="Journey Launcher" className="h-7 w-7" />
-          JOURNEY LAUNCHER
+          <span className="font-semibold tracking-tight text-foreground">Journey</span>
+          <span className="-ml-2 font-light tracking-tight text-muted-foreground">Launcher</span>
         </Link>
 
         {/* Primary links + CTAs + menu toggle */}

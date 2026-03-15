@@ -24,7 +24,7 @@ export function WeAdvised() {
           viewport={{ once: true }}
           className="mb-10 text-center font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground"
         >
-          Trusted by teams at
+          Best practices from teams at
         </motion.p>
 
         {/* Marquee container */}
