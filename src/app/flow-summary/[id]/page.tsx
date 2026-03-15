@@ -50,6 +50,8 @@ const NODE_STYLES: Record<string, { border: string; badge: string; label: string
   email: { border: "border-l-blue-500", badge: "bg-blue-100 text-blue-800", label: "Email" },
   wait: { border: "border-l-slate-400 border-dashed", badge: "bg-slate-100 text-slate-600", label: "Wait" },
   condition: { border: "border-l-amber-500", badge: "bg-amber-100 text-amber-800", label: "Condition" },
+  push: { border: "border-l-purple-500", badge: "bg-purple-100 text-purple-800", label: "Push" },
+  in_app: { border: "border-l-teal-500", badge: "bg-teal-100 text-teal-800", label: "In-App" },
 };
 
 const CATEGORY_ORDER = ["Strategy", "Data", "Targeting", "Campaigns", "Reporting"] as const;
@@ -95,6 +97,23 @@ function NodeCard({ node }: { node: FlowNode }) {
               No: {node.no_label || "Exit"}
             </span>
           </div>
+        </div>
+      )}
+      {node.type === "push" && (
+        <div className="mt-1">
+          <p className="font-semibold text-slate-900">{node.label || "Push Notification"}</p>
+          {node.description && <p className="mt-0.5 text-sm text-slate-500">{node.description}</p>}
+        </div>
+      )}
+      {node.type === "in_app" && (
+        <div className="mt-1">
+          <p className="font-semibold text-slate-900">{node.label || "In-App Placement"}</p>
+          {node.description && <p className="mt-0.5 text-sm text-slate-500">{node.description}</p>}
+          {node.cta_text && (
+            <span className="mt-1.5 inline-block rounded-md bg-teal-500 px-3 py-1 text-xs text-white">
+              {node.cta_text}
+            </span>
+          )}
         </div>
       )}
     </div>

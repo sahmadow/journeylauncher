@@ -9,29 +9,70 @@ function stubWebhookSummary(dataSources: string[]) {
   const webhooks: { source: string; event: string; description: string }[] = [];
   const polling: { source: string; frequency: string; description: string }[] = [];
 
-  const sourcesLower = dataSources.map((s) => s.toLowerCase());
-  const hasAnalytics = sourcesLower.some((s) => ["mixpanel", "amplitude", "segment", "posthog"].some((a) => s.includes(a)));
-
-  if (hasAnalytics) {
-    signals.push(
-      { category: "Usage", signal: "Feature adoption depth", description: "Track which features users engage with" },
-      { category: "Churn", signal: "Declining login frequency", description: "Detect users whose session frequency drops" },
-      { category: "Engagement", signal: "Session duration trends", description: "Monitor changes in time spent per session" },
-    );
-  }
-
   for (const src of dataSources) {
     const sl = src.toLowerCase();
-    if (sl === "stripe") {
-      webhooks.push({ source: src, event: "payment.completed", description: `Triggered when payment completes in ${src}` });
+    let matched = false;
+
+    if (sl.includes("website")) {
+      matched = true;
+      signals.push(
+        { category: "Engagement", signal: "Page visit patterns", description: "Track high-intent page visits and drop-offs" },
+        { category: "Engagement", signal: "Traffic attribution", description: "Identify which channels drive engaged users" },
+      );
+    }
+
+    if (sl.includes("email")) {
+      matched = true;
+      signals.push(
+        { category: "Engagement", signal: "Email engagement decline", description: "Detect subscribers losing interest over time" },
+        { category: "Usage", signal: "List subscription changes", description: "Track opt-in/opt-out trends across lists" },
+      );
+    }
+
+    if (sl.includes("in-app") || sl.includes("behaviour")) {
+      matched = true;
+      signals.push(
+        { category: "Usage", signal: "Feature adoption depth", description: "Track which features users engage with" },
+        { category: "Churn", signal: "Declining login frequency", description: "Detect users whose session frequency drops" },
+        { category: "Engagement", signal: "Session duration trends", description: "Monitor changes in time spent per session" },
+      );
+    }
+
+    if (sl.includes("purchase") || sl.includes("billing")) {
+      matched = true;
+      webhooks.push({ source: src, event: "payment.completed", description: "Triggered when payment completes" });
       signals.push(
         { category: "Revenue", signal: "Payment failure detected", description: "Trigger dunning flow on failed charges" },
+        { category: "Revenue", signal: "Repeat purchase rate", description: "Track repeat purchase behaviour" },
         { category: "Churn", signal: "Subscription cancellation", description: "Signals voluntary churn" },
       );
-    } else if (sl.includes("shopify") || sl.includes("woocommerce")) {
-      webhooks.push({ source: src, event: "order.created", description: `Triggered on new order in ${src}` });
-      signals.push({ category: "Revenue", signal: "Repeat purchase rate", description: `Track repeat purchases in ${src}` });
-    } else if (!hasAnalytics || !["mixpanel", "amplitude", "segment", "posthog"].some((a) => sl.includes(a))) {
+    }
+
+    if (sl.includes("customer profile")) {
+      matched = true;
+      signals.push(
+        { category: "Usage", signal: "Profile completeness", description: "Nudge users to complete their profile" },
+        { category: "Engagement", signal: "Demographic segmentation", description: "Tailor flows by role, company size, or location" },
+      );
+    }
+
+    if (sl.includes("form") || sl.includes("survey")) {
+      matched = true;
+      signals.push(
+        { category: "Engagement", signal: "NPS score changes", description: "Trigger flows when satisfaction drops" },
+        { category: "Churn", signal: "Negative feedback detected", description: "Flag at-risk users from survey responses" },
+      );
+    }
+
+    if (sl.includes("social") || sl.includes("ad ")) {
+      matched = true;
+      signals.push(
+        { category: "Engagement", signal: "Ad attribution tracking", description: "Link ad clicks to downstream conversions" },
+        { category: "Usage", signal: "UTM cohort analysis", description: "Segment users by acquisition campaign" },
+      );
+    }
+
+    if (!matched && sl !== "none") {
       polling.push({ source: src, frequency: "Every 15 minutes", description: `Poll ${src} for new events` });
     }
   }

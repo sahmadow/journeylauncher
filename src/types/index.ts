@@ -55,7 +55,7 @@ export type LifecycleStage =
 
 export interface FlowNode {
   id: string;
-  type: "trigger" | "email" | "wait" | "condition";
+  type: "trigger" | "email" | "wait" | "condition" | "push" | "in_app";
   label?: string;
   description?: string;
   subject?: string;

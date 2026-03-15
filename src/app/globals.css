@@ -170,3 +170,19 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* CTA glow — logo gradient */
+.cta-glow {
+  background: linear-gradient(135deg, #00A8E8, #8B5CF6);
+  box-shadow: 0 4px 20px rgba(0, 168, 232, 0.35), 0 0 40px rgba(139, 92, 246, 0.2);
+  animation: cta-pulse 3s ease-in-out infinite;
+}
+
+.cta-glow:hover {
+  box-shadow: 0 6px 28px rgba(0, 168, 232, 0.5), 0 0 50px rgba(139, 92, 246, 0.3);
+}
+
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0, 168, 232, 0.35), 0 0 40px rgba(139, 92, 246, 0.2); }
+  50% { box-shadow: 0 6px 30px rgba(0, 201, 120, 0.4), 0 0 50px rgba(139, 92, 246, 0.3); }
+}

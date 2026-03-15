@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronRight, Download } from "lucide-react";
+import { ChevronDown, ChevronRight, Download, ArrowRight } from "lucide-react";
 import { WizardState, GeneratedEmail } from "@/types";
 import { generateRecommendations, Recommendation } from "@/lib/recommendations";
-// JSZip dynamically imported in handleDownload to reduce bundle size
+// canvas-confetti & JSZip dynamically imported to avoid SSR issues
 
 interface Props {
   state: WizardState;
@@ -105,7 +105,7 @@ export function ScreenSummary({ state, onSave, isLoading }: Props) {
     const persLabels = ["No Personalisation", "Basic Personalisation", "Advanced Personalisation"];
     const dataLabels: Record<string, string> = { all: "Full Access", some: "Partial Access", none: "No Data" };
 
-    const escHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const escHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
     const stagesHtml = state.generatedFlow?.stages.map((stage) => {
       const emailCount = stage.nodes.filter((n) => n.type === "email").length;
@@ -148,6 +148,8 @@ export function ScreenSummary({ state, onSave, isLoading }: Props) {
       email: { border: "#3b82f6", badge: "background:#dbeafe;color:#1e40af;", badgeLabel: "Email" },
       wait: { border: "#94a3b8", badge: "background:#f1f5f9;color:#475569;", badgeLabel: "Wait" },
       condition: { border: "#f59e0b", badge: "background:#fef3c7;color:#92400e;", badgeLabel: "Condition" },
+      push: { border: "#a855f7", badge: "background:#f3e8ff;color:#6b21a8;", badgeLabel: "Push" },
+      in_app: { border: "#14b8a6", badge: "background:#ccfbf1;color:#115e59;", badgeLabel: "In-App" },
     };
 
     const lifecycleFlowHtml = state.generatedFlow?.stages.map((stage) => {
@@ -165,6 +167,10 @@ export function ScreenSummary({ state, onSave, isLoading }: Props) {
           content = `<div><span style="background:#f1f5f9;color:#475569;padding:4px 12px;border-radius:12px;font-size:13px;font-weight:500;">${escHtml(node.duration || "Wait")}</span></div>`;
         } else if (node.type === "condition") {
           content = `<div style="font-weight:600;color:#0f172a;">${escHtml(node.condition || node.label || "Condition")}</div><div style="margin-top:6px;display:flex;gap:8px;"><span style="background:#dcfce7;color:#166534;padding:2px 10px;border-radius:10px;font-size:12px;">Yes: ${escHtml(node.yes_label || "Continue")}</span><span style="background:#fee2e2;color:#991b1b;padding:2px 10px;border-radius:10px;font-size:12px;">No: ${escHtml(node.no_label || "Exit")}</span></div>`;
+        } else if (node.type === "push") {
+          content = `<div style="font-weight:600;color:#0f172a;">${escHtml(node.label || "Push Notification")}</div>${node.description ? `<div style="color:#64748b;font-size:13px;margin-top:2px;">${escHtml(node.description)}</div>` : ""}`;
+        } else if (node.type === "in_app") {
+          content = `<div style="font-weight:600;color:#0f172a;">${escHtml(node.label || "In-App Placement")}</div>${node.description ? `<div style="color:#64748b;font-size:13px;margin-top:2px;">${escHtml(node.description)}</div>` : ""}${node.cta_text ? `<div style="margin-top:6px;"><span style="background:#14b8a6;color:#fff;padding:4px 12px;border-radius:6px;font-size:12px;">${escHtml(node.cta_text)}</span></div>` : ""}`;
         }
 
         return `<div class="node" style="${borderStyle}padding:12px 16px;margin-left:20px;${isLast ? "" : "margin-bottom:0;"}position:relative;">
@@ -334,9 +340,32 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
     });
   };
 
+  const confettiFired = useRef(false);
+
   useEffect(() => {
     onSave();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Fire confetti on mount (once) — dynamic import to avoid SSR issues
+  useEffect(() => {
+    if (confettiFired.current) return;
+    confettiFired.current = true;
+
+    import("canvas-confetti").then(({ default: confetti }) => {
+      // Big initial burst from both sides
+      confetti({ particleCount: 80, spread: 70, angle: 60, origin: { x: 0, y: 0.6 }, colors: ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b"] });
+      confetti({ particleCount: 80, spread: 70, angle: 120, origin: { x: 1, y: 0.6 }, colors: ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b"] });
+
+      // Staggered follow-up bursts
+      setTimeout(() => {
+        confetti({ particleCount: 40, spread: 90, origin: { x: 0.3, y: 0.5 } });
+        confetti({ particleCount: 40, spread: 90, origin: { x: 0.7, y: 0.5 } });
+      }, 300);
+      setTimeout(() => {
+        confetti({ particleCount: 30, spread: 120, origin: { x: 0.5, y: 0.4 }, gravity: 0.8 });
+      }, 600);
+    });
+  }, []);
 
   return (
     <motion.div
@@ -346,6 +375,7 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
       exit={{ opacity: 0, y: -20 }}
       className="flex w-full max-w-xl flex-col gap-8 pt-16"
     >
+      {/* Header + Logo */}
       <div className="text-center">
         {state.scrapedData?.logo_url && (
           <img
@@ -356,12 +386,30 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
           />
         )}
         <h2 className="mb-2 text-3xl font-bold text-slate-900">
-          Your Automation is Ready!
+          Your Flow is Ready!
         </h2>
-        <p className="text-slate-500">
-          Here&apos;s a summary of your personalized lifecycle program
-        </p>
       </div>
+
+      {/* Sales pitch + CTA */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3 }}
+        className="rounded-xl border border-slate-200 bg-white p-6 text-center"
+      >
+        <p className="mb-4 text-slate-700">
+          At JourneyLauncher we help marketing teams build CRM agents that can orchestrate and scale your lifecycle campaigns. Book a call to learn more.
+        </p>
+        <a
+          href="https://calendly.com/saleh-journeylauncher/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cta-glow group inline-flex h-12 items-center justify-center gap-2 rounded-lg px-8 text-sm font-semibold text-white transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <span>Book Setup Call</span>
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </motion.div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 gap-4">
@@ -377,14 +425,19 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
             Stages Configured
           </p>
           <div className="space-y-2">
-            {state.generatedFlow.stages.map((stage) => (
-              <div key={stage.stage} className="flex items-center justify-between">
-                <span className="text-slate-700">{stage.stage}</span>
-                <span className="text-sm text-slate-500">
-                  {stage.nodes.filter((n) => n.type === "email").length} emails
-                </span>
-              </div>
-            ))}
+            {state.generatedFlow.stages.map((stage, i) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const raw = stage as any;
+              const name = stage.stage || raw.name || raw.stage_name || `Stage ${i + 1}`;
+              return (
+                <div key={name} className="flex items-center justify-between">
+                  <span className="text-slate-700">{name}</span>
+                  <span className="text-sm text-slate-500">
+                    {stage.nodes.filter((n) => n.type === "email").length} emails
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -428,15 +481,16 @@ Questions? Book a setup call: https://calendly.com/saleh-journeylauncher/30min
         </div>
       )}
 
-      {/* CTAs */}
+      {/* Bottom CTAs */}
       <div className="flex flex-col gap-3">
         <a
           href="https://calendly.com/saleh-journeylauncher/30min"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-11 w-full items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90"
+          className="cta-glow group inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg px-8 text-sm font-semibold text-white transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
         >
-          Book Setup Call
+          <span>Book Setup Call</span>
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </a>
         <Button variant="outline" size="lg" className="w-full" onClick={handleDownload}>
           <Download className="mr-2 h-4 w-4" />
